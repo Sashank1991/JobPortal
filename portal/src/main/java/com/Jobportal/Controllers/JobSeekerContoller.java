@@ -1,5 +1,13 @@
 package com.Jobportal.Controllers;
 
-public class JobSeekerContoller {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+
+@Controller
+public class JobSeekerContoller {
+	@RequestMapping("/")
+	public String index() {
+		return "JobSeekerHome";
+	}
 }
