@@ -1,25 +1,29 @@
 package com.Jobportal.Entities;
 
-import javax.persistence.Entity;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="UserRoles")
-public class UserRoles {
+public abstract class User {
+
 	@Id
-	private int userid;
-	private String email;
-	private String verificationCode;
-	private int status;
-	private int role;
+	@GeneratedValue
+	@Column
+	protected int userId;
 
-	public int getUserid() {
-		return userid;
+	protected String email;
+
+	protected String verificationCode;
+
+	protected int status;
+
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getEmail() {
@@ -44,14 +48,6 @@ public class UserRoles {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public int getRole() {
-		return role;
-	}
-
-	public void setRole(int role) {
-		this.role = role;
 	}
 
 }

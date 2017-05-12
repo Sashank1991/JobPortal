@@ -2,54 +2,38 @@ package com.Jobportal.Entities;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="UserProfiles")
-public class UserProfiles {
-	@Id
-	@Column(name = "userId")
-	private int userId;
+@Table(name="JobSeeker")
+public class JobSeeker extends User {
+
 	@Column(name = "firstName")
 	private String firstName;
+
 	@Column(name = "lastName")
 	private String lastName;
+
 	@Column(name = "picKey")
 	private String picKey;
+
 	@Column(name = "workExperience")
 	private String workExperience;
+
 	@Column(name = "education")
 	private String education;
+
 	@Column(name = "skills")
 	private String skills;
 
-	@OneToMany
-	@JoinColumn(name = "userId")
-	private List<UserFavorites> favs;
-	@OneToMany
-	@JoinColumn(name = "userId")
-	private List<UserJobApplications> applications;
+	@OneToMany(mappedBy = "jobSeeker")
+	private List<Application> applications;
 
-	public List<UserJobApplications> getApplications() {
-		return applications;
-	}
-
-	public void setApplications(List<UserJobApplications> applications) {
-		this.applications = applications;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+	@ManyToMany
+	@JoinTable(name = "favoriteJob",
+			joinColumns = {@JoinColumn(name = "jobSeekerId", referencedColumnName = "userId")},
+			inverseJoinColumns = {@JoinColumn(name = "jobPositionId", referencedColumnName = "jobId")})
+	private List<JobPosition> favoriteJobs;
 
 	public String getFirstName() {
 		return firstName;
@@ -98,5 +82,22 @@ public class UserProfiles {
 	public void setSkills(String skills) {
 		this.skills = skills;
 	}
+
+	public List<Application> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
+	}
+
+	public List<JobPosition> getFavoriteJobs() {
+		return favoriteJobs;
+	}
+
+	public void setFavoriteJobs(List<JobPosition> favoriteJobs) {
+		this.favoriteJobs = favoriteJobs;
+	}
+
 
 }
