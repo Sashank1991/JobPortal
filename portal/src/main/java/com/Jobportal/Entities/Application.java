@@ -20,7 +20,6 @@ public class Application {
 
 	// for ManyToOne mapping between JobPosition entity and Application;
 	// where JopPosition is the owner
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "jobId")
 	private JobPosition jobPosition;
@@ -63,6 +62,7 @@ public class Application {
 	public void setJobPosition(JobPosition jobPosition) {
 		this.jobPosition = jobPosition;
 	}
+
 	@JsonIgnoreProperties({ "applications","favoriteJobs" })
 	public JobSeeker getJobSeeker() {
 		return jobSeeker;

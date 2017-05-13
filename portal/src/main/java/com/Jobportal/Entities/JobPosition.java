@@ -97,6 +97,7 @@ public class JobPosition {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+
 	@JsonIgnoreProperties({ "jobPosition" })
 	public List<Application> getApplications() {
 		return applications;

@@ -58,6 +58,7 @@ public class Company extends User{
     public void setAddressHQ(String addressHQ) {
         this.addressHQ = addressHQ;
     }
+
 	@JsonIgnoreProperties({ "jobSeeker","company" })
     public List<JobPosition> getJobPositions() {
         return jobPositions;

@@ -1,4 +1,4 @@
-package com.Jobportal.DAO;
+package com.Jobportal.Dao;
 
 public class JobSeekerFavDao {
 
