@@ -2,6 +2,8 @@ package com.Jobportal.Entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "Application")
 public class Application {
@@ -18,8 +20,9 @@ public class Application {
 
 	// for ManyToOne mapping between JobPosition entity and Application;
 	// where JopPosition is the owner
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="jobId")
+	@JoinColumn(name = "jobId")
 	private JobPosition jobPosition;
 
 	// for ManyToOne mapping between JobSeeker entity and Application;
@@ -52,6 +55,7 @@ public class Application {
 		this.status = status;
 	}
 
+	@JsonIgnoreProperties({ "applications", "jobSeeker" })
 	public JobPosition getJobPosition() {
 		return jobPosition;
 	}
@@ -59,7 +63,7 @@ public class Application {
 	public void setJobPosition(JobPosition jobPosition) {
 		this.jobPosition = jobPosition;
 	}
-
+	@JsonIgnoreProperties({ "applications","favoriteJobs" })
 	public JobSeeker getJobSeeker() {
 		return jobSeeker;
 	}
@@ -67,6 +71,5 @@ public class Application {
 	public void setJobSeeker(JobSeeker jobSeeker) {
 		this.jobSeeker = jobSeeker;
 	}
-
 
 }

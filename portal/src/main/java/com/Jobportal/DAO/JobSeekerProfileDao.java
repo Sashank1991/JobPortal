@@ -1,5 +1,11 @@
-package com.Jobportal.Dao;
+package com.Jobportal.DAO;
 
-public class JobSeekerProfileDao {
+import org.springframework.data.repository.CrudRepository;
+
+import com.Jobportal.Entities.JobSeeker;
+
+public interface JobSeekerProfileDao extends CrudRepository<JobSeeker, Long> {
+
+	public JobSeeker findByuserId(int user_id);
 
 }

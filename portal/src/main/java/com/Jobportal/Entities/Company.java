@@ -1,13 +1,14 @@
 package com.Jobportal.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
-@Table
+@Table(name="Company")
 public class Company extends User{
 
     @Column
@@ -22,7 +23,7 @@ public class Company extends User{
     @Column
     private String addressHQ;
 
-    @JsonIgnore
+    
     @OneToMany(mappedBy = "company")
     private List<JobPosition> jobPositions;
 
@@ -57,7 +58,7 @@ public class Company extends User{
     public void setAddressHQ(String addressHQ) {
         this.addressHQ = addressHQ;
     }
-
+	@JsonIgnoreProperties({ "jobSeeker","company" })
     public List<JobPosition> getJobPositions() {
         return jobPositions;
     }

@@ -1,11 +1,14 @@
 package com.Jobportal.Entities;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table(name="JobSeeker")
+@Table(name = "JobSeeker")
 public class JobSeeker extends User {
 
 	@Column(name = "firstName")
@@ -26,14 +29,14 @@ public class JobSeeker extends User {
 	@Column(name = "skills")
 	private String skills;
 
-	@OneToMany(mappedBy = "jobSeeker")
-	private List<Application> applications;
+	@OneToMany(mappedBy = "jobSeeker", fetch = FetchType.EAGER)
+	private Set<Application> applications;
 
-	@ManyToMany
-	@JoinTable(name = "favoriteJob",
-			joinColumns = {@JoinColumn(name = "jobSeekerId", referencedColumnName = "userId")},
-			inverseJoinColumns = {@JoinColumn(name = "jobPositionId", referencedColumnName = "jobId")})
-	private List<JobPosition> favoriteJobs;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "favoriteJob", joinColumns = {
+			@JoinColumn(name = "jobSeekerId", referencedColumnName = "userId") }, inverseJoinColumns = {
+					@JoinColumn(name = "jobPositionId", referencedColumnName = "jobId") })
+	private Set<JobPosition> favoriteJobs;
 
 	public String getFirstName() {
 		return firstName;
@@ -83,21 +86,22 @@ public class JobSeeker extends User {
 		this.skills = skills;
 	}
 
-	public List<Application> getApplications() {
+	@JsonIgnoreProperties({ "jobSeeker" })
+	public Set<Application> getApplications() {
 		return applications;
 	}
 
-	public void setApplications(List<Application> applications) {
+	public void setApplications(Set<Application> applications) {
 		this.applications = applications;
 	}
 
-	public List<JobPosition> getFavoriteJobs() {
+	@JsonIgnoreProperties({ "jobSeeker", "applications" })
+	public Set<JobPosition> getFavoriteJobs() {
 		return favoriteJobs;
 	}
 
-	public void setFavoriteJobs(List<JobPosition> favoriteJobs) {
+	public void setFavoriteJobs(Set<JobPosition> favoriteJobs) {
 		this.favoriteJobs = favoriteJobs;
 	}
-
 
 }
