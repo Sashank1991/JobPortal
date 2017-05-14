@@ -127,7 +127,7 @@ app.controller('userProfile', function($scope, $modal, $http) {
 
 	$scope.favoriteJobs = [];
 	$scope.applications = [];
-	$scope.showModal = function() {
+	$scope.showModal = function(jobitem) {
 		$scope.opts = {
 			backdrop : true,
 			backdropClick : true,
@@ -147,7 +147,7 @@ app.controller('userProfile', function($scope, $modal, $http) {
 
 		modalInstance.result.then(function() {
 			// on ok button press
-			$scope.applyinFav();
+			$scope.applyinFav(jobitem);
 		}, function() {
 			// on cancel button press
 			console.log("Modal Closed");

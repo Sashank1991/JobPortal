@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.Jobportal.Entities.Application;
 import com.Jobportal.Entities.Company;
@@ -28,7 +29,7 @@ import com.Jobportal.Service.JobSeekerApplicationServices;
 import com.Jobportal.Service.JobSeekerProfileServices;
 
 @RestController
-@SessionAttributes("currentUserProfile")
+@SessionAttributes({ "currentUserProfile", "currentResume" })
 public class jobSeekerRestController {
 
 	@Autowired
@@ -78,14 +79,16 @@ public class jobSeekerRestController {
 
 	@RequestMapping(value = "/applyfromFav", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public int applyfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
+	public int applyfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile,
+			@ModelAttribute("currentResume") MultipartFile resume, Model model,
 			@RequestBody Application _jobApplication) {
+		Application reqApplication = _jobApplication;
 
 		Application _newApplication = new Application();
-		_newApplication.setJobPosition(_jobApplication.getJobPosition());
+		_newApplication.setJobPosition(reqApplication.getJobPosition());
 		_newApplication.setJobSeeker(currentUserProfile);
-		_newApplication.setStatus(_jobApplication.getStatus());
-		_newApplication.setResumeKey(_jobApplication.getResumeKey());
+		_newApplication.setStatus(reqApplication.getStatus());
+		_newApplication.setResumeKey(reqApplication.getResumeKey());
 		Set<Application> listApplications = currentUserProfile.getApplications();
 		listApplications.add(_newApplication);
 		_jobSeekerProfileServices.updateSeeker(currentUserProfile);
@@ -107,6 +110,34 @@ public class jobSeekerRestController {
 		model.addAttribute("currentUserProfile", currentJobSeeker);
 		// if no session redirect him to the login
 		return 0;
+	}
+
+	@RequestMapping(value = "/uploadCurrentResume", method = RequestMethod.POST)
+	public int uploadCUrrentResume(@RequestBody MultipartFile doc, Model model) {
+		model.addAttribute("currentResume", doc);
+		return 0;
+	}
+
+}
+
+class ApplyRequestModel {
+	private MultipartFile resume;
+	private Application _jobApplication;
+
+	public MultipartFile getResume() {
+		return resume;
+	}
+
+	public void setResume(MultipartFile resume) {
+		this.resume = resume;
+	}
+
+	public Application get_jobApplication() {
+		return _jobApplication;
+	}
+
+	public void set_jobApplication(Application _jobApplication) {
+		this._jobApplication = _jobApplication;
 	}
 
 }
