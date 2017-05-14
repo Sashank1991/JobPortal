@@ -10,8 +10,8 @@
 						   http://www.springframework.org/schema/cloud/aws/jdbc/spring-cloud-aws-jdbc-1.0.xsd">
 
   <aws-context:context-credentials>
-     <aws-context:simple-credentials access-key="${accessKey:AKIAIHUMZ4N2FIE7GM7Q}" 
-     secret-key="${secretKey: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}"/>
+     <aws-context:simple-credentials access-key="${accessKey:XXXXXXXX}" 
+     secret-key="${secretKey:XXXXXXXXX}"/>
   </aws-context:context-credentials> 
   <aws-context:context-region region="us-west-1"/>
   
