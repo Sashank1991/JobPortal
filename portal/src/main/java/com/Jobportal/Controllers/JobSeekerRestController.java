@@ -1,8 +1,6 @@
 package com.Jobportal.Controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,7 +26,7 @@ import com.Jobportal.Service.JobSeekerProfileServices;
 
 @RestController
 @SessionAttributes({ "currentUserProfile", "currentResume" })
-public class jobSeekerRestController {
+public class JobSeekerRestController {
 
 	@Autowired
 	JobSeekerProfileServices _jobSeekerProfileServices;
@@ -70,8 +68,6 @@ public class jobSeekerRestController {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public int updateFavfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
 			@RequestBody Set<JobPosition> _jobPositions) {
-		List<JobPosition> list = new ArrayList<JobPosition>(_jobPositions);
-		JobPosition obj = list.get(0);
 		currentUserProfile.setFavoriteJobs(_jobPositions);
 		_jobSeekerProfileServices.updateSeeker(currentUserProfile);
 		// update session

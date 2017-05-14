@@ -1,8 +1,5 @@
 package com.Jobportal.Service;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
@@ -10,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.Jobportal.DAO.JobPositionDao;
 import com.Jobportal.DAO.JobSeekerApplicationsDao;
 import com.Jobportal.DAO.JobSeekerProfileDao;
-import com.Jobportal.Entities.JobPosition;
 import com.Jobportal.Entities.JobSeeker;
 
 @Service
