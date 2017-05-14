@@ -1,18 +1,15 @@
 package com.Jobportal.Controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.Jobportal.DAO.CustomerRepositoryDao;
 import com.Jobportal.Entities.Application;
-import com.Jobportal.Entities.Company;
+import com.Jobportal.Entities.CustomerImage;
 import com.Jobportal.Entities.JobPosition;
 import com.Jobportal.Entities.JobSeeker;
-import com.Jobportal.Service.CompanyService;
+import com.Jobportal.Service.FileArchiveService;
 import com.Jobportal.Service.JobSeekerApplicationServices;
 import com.Jobportal.Service.JobSeekerProfileServices;
 
@@ -34,6 +32,12 @@ public class jobSeekerRestController {
 
 	@Autowired
 	JobSeekerProfileServices _jobSeekerProfileServices;
+	
+	@Autowired
+	private FileArchiveService fileArchiveService;
+	
+	@Autowired
+	private CustomerRepositoryDao customerRepository;
 
 	@Autowired
 	JobSeekerApplicationServices _jobSeekerApplicationServices;
@@ -113,9 +117,11 @@ public class jobSeekerRestController {
 	}
 
 	@RequestMapping(value = "/uploadCurrentResume", method = RequestMethod.POST)
-	public int uploadCUrrentResume(@RequestBody MultipartFile doc, Model model) {
+	public String uploadCurrentResume(@RequestBody MultipartFile doc, Model model) throws IOException {
 		model.addAttribute("currentResume", doc);
-		return 0;
+		CustomerImage customerImage = fileArchiveService.saveFileToS3(doc);
+		customerRepository.save(customerImage);
+		return customerImage.getUrl();
 	}
 
 }
