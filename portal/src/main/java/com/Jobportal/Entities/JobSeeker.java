@@ -29,10 +29,10 @@ public class JobSeeker extends User {
 	@Column(name = "skills")
 	private String skills;
 
-	@OneToMany(mappedBy = "jobSeeker", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "jobSeeker", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Application> applications;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "favoriteJob", joinColumns = {
 			@JoinColumn(name = "jobSeekerId", referencedColumnName = "userId") }, inverseJoinColumns = {
 					@JoinColumn(name = "jobPositionId", referencedColumnName = "jobId") })

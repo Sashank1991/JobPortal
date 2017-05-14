@@ -63,7 +63,8 @@ public class Application {
 	public void setJobPosition(JobPosition jobPosition) {
 		this.jobPosition = jobPosition;
 	}
-	@JsonIgnoreProperties({ "applications","favoriteJobs" })
+
+	@JsonIgnoreProperties({ "applications", "favoriteJobs" })
 	public JobSeeker getJobSeeker() {
 		return jobSeeker;
 	}

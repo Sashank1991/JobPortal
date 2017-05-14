@@ -1,0 +1,63 @@
+company
+
+insert into 275proj1.company values (0,'1@amazon.com','1','1234','abc','img','amazon','amazon.com');
+insert into 275proj1.company values (0,'1@adobe.com','1','1234','abc','img','adobe','adobe.com');
+insert into 275proj1.company values (0,'1@google.com','1','1234','abc','img','google','google.com');
+insert into 275proj1.company values (0,'1@philips.com','1','1234','abc','img','philips','philips.com');
+insert into 275proj1.company values (0,'1@samsung.com','1','1234','abc','img','samsung','samsung.com');
+
+job positions
+
+
+SELECT * FROM 275proj1.job_position;
+
+
+insert into 275proj1.job_position values (0,'web developer','los angeles','abc',123456,'amazon',1);
+insert into 275proj1.job_position values (0,'software engineer','san jose','abc',123456,'adobe',1);
+insert into 275proj1.job_position values (0,'hardare engineer','san diego','abc',123456,'google',4);
+insert into 275proj1.job_position values (0,'management','san francisco','abc',123456,'philips',5);
+insert into 275proj1.job_position values (0,'test engineer','hyderabad','abc',123456,'samsung',1);
+
+jso seeker
+
+
+SELECT * FROM 275proj1.job_seeker;
+
+
+
+
+insert into 275proj1.job_seeker values (0,'1@gmail.com','1','1','MS','abc1','abc1','http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','java',1);
+insert into 275proj1.job_seeker values (0,'2@gmail.com','1','1','BS','abc2','abc1','http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','java',1);
+insert into 275proj1.job_seeker values (0,'3@gmail.com','1','1','MS','abc3','abc1','http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','javascript',4);
+insert into 275proj1.job_seeker values (0,'4@gmail.com','1','1','PHD','abc4','abc1','http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','php',5);
+insert into 275proj1.job_seeker values (0,'5@gmail.com','1','1','BE','abc5','abc1','http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','c#',1);
+
+
+fav
+
+
+SELECT * FROM 275proj1.favorite_job;
+
+insert into 275proj1.favorite_job values (1,5);
+insert into 275proj1.favorite_job values (1,1);
+insert into 275proj1.favorite_job values (1,2);
+
+insert into 275proj1.favorite_job values (5,3);
+insert into 275proj1.favorite_job values (5,4);
+insert into 275proj1.favorite_job values (5,2);
+
+insert into 275proj1.favorite_job values (3,1);
+insert into 275proj1.favorite_job values (3,2);
+insert into 275proj1.favorite_job values (3,3);
+
+
+applications
+
+SELECT * FROM 275proj1.application;
+
+insert into 275proj1.application values (0,'http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','accepted',1,1);
+insert into 275proj1.application values (0,'http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','accepted',1,2);
+insert into 275proj1.application values (0,'http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','pending',4,3);
+insert into 275proj1.application values (0,'http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','accepted',5,4);
+insert into 275proj1.application values (0,'http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','pending',1,5);
+insert into 275proj1.application values (0,'http://media.cntraveler.com/photos/55d242c637284fb1079cba35/16:9/w_1024,c_limit/golden-gate-ferry-san-francisco.jpg','rejected',1,3);

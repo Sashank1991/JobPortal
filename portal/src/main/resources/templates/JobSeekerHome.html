@@ -14,7 +14,7 @@
 <script src="http://code.angularjs.org/1.2.4/angular-route.js"></script>
 <script
 	src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
-<script src="js/scripts.js"></script>
+<script src="js/scripts1.js"></script>
 
 <link href="css/style.css" rel="stylesheet" />
 <link rel="stylesheet"
@@ -65,36 +65,36 @@
 									<form role="form">
 
 										<div class="form-group">
-											<button type="submit" class="btn btn-default">Save
-												Profile</button>
+											<button type="submit" class="btn btn-default"
+												ng-click="saveProfile()">Save Profile</button>
 										</div>
 										<div class="form-group">
-											<img ng-src="{{profilePic}}" alt="Mountain View"
+											<img ng-src="{{profile.picKey}}" alt="Mountain View"
 												style="width: 150px; height: 150px;" />
 										</div>
 										<div class="form-group">
 											<label> First Name </label> <input type="text"
-												ng-model="firstName" class="form-control" />
+												ng-model="profile.firstName" class="form-control" />
 										</div>
 										<div class="form-group">
 											<label> Last Name </label> <input type="text"
-												ng-model="lastName" class="form-control" />
+												ng-model="profile.lastName" class="form-control" />
 										</div>
 										<div class="form-group">
 											<label> Self Introduction </label> <input type="text"
-												ng-model="selfIntroduction" class="form-control" />
+												ng-model="profile.selfIntroduction" class="form-control" />
 										</div>
 										<div class="form-group">
 											<label> Work experience </label> <input type="text"
-												ng-model="workExperience" class="form-control" />
+												ng-model="profile.workExperience" class="form-control" />
 										</div>
 										<div class="form-group">
 											<label> Education </label> <input type="text"
-												ng-model="education" class="form-control" />
+												ng-model="profile.education" class="form-control" />
 										</div>
 										<div class="form-group">
-											<label> Skills </label> <input type="text" ng-model="skills"
-												class="form-control" />
+											<label> Skills </label> <input type="text"
+												ng-model="profile.skills" class="form-control" />
 										</div>
 
 									</form>
@@ -107,9 +107,14 @@
 								<h3 class="panel-title">Interested Positions</h3>
 							</div>
 							<div class="panel-body">
+								<div class="form-group">
+									<button type="submit" class="btn btn-default"
+										ng-click="saveFavinFav()">Update Favorites List</button>
+								</div>
 								<table class="table">
 									<thead>
 										<tr>
+											<th>My Fav</th>
 											<th>Name</th>
 											<th>Title</th>
 											<th>Description</th>
@@ -120,8 +125,9 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="item in favs">
-											<td><span ng-bind="item.name"></span></td>
+										<tr ng-repeat="item in favoriteJobs">
+											<td><input type="checkbox" ng-model="item.checked"></input></td>
+											<td><span ng-bind="item.company.name"></span></td>
 											<td><span ng-bind="item.title"></span></td>
 											<td><span ng-bind="item.description"></span></td>
 											<td><span ng-bind="item.responsibilities"></span></td>
@@ -129,6 +135,8 @@
 											<td><span ng-bind="item.salary"></span></td>
 											<td><button class="btn btn-default"
 													ng-click="showModal()">Apply</button></td>
+											<!-- ng-click="">Apply</button></td> -->
+
 										</tr>
 
 									</tbody>
@@ -156,15 +164,15 @@
 									</thead>
 									<tbody>
 										<tr ng-repeat="item in applications">
-											<td><span ng-bind="item.name"></span></td>
-											<td><span ng-bind="item.title"></span></td>
-											<td><span ng-bind="item.description"></span></td>
-											<td><span ng-bind="item.responsibilities"></span></td>
-											<td><span ng-bind="item.officeLocation"></span></td>
-											<td><span ng-bind="item.salary"></span></td>
+											<td><span ng-bind="item.jobPosition.company.name"></span></td>
+											<td><span ng-bind="item.jobPosition.title"></span></td>
+											<td><span ng-bind="item.jobPosition.description"></span></td>
+											<td><span ng-bind="item.jobPosition.responsibilities"></span></td>
+											<td><span ng-bind="item.jobPosition.officeLocation"></span></td>
+											<td><span ng-bind="item.jobPosition.salary"></span></td>
 											<td><span ng-bind="item.status"></span></td>
 											<td><button class="btn btn-default"
-													ng-click="showModal()">Cancel</button></td>
+													ng-click="cancelApplied(item)">Cancel</button></td>
 										</tr>
 
 									</tbody>
