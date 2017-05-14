@@ -1,4 +1,4 @@
-package com.Jobportal.DAO;
+package com.Jobportal.Dao;
 
 import org.springframework.data.repository.CrudRepository;
 

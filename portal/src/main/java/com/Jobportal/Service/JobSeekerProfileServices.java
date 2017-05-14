@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
-import com.Jobportal.DAO.JobPositionDao;
-import com.Jobportal.DAO.JobSeekerApplicationsDao;
-import com.Jobportal.DAO.JobSeekerProfileDao;
+import com.Jobportal.Dao.JobPositionDao;
+import com.Jobportal.Dao.JobSeekerApplicationsDao;
+import com.Jobportal.Dao.JobSeekerProfileDao;
 import com.Jobportal.Entities.JobSeeker;
 
 @Service
