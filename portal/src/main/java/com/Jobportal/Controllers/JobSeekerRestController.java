@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.Jobportal.Dao.CustomerRepositoryDao;
+import com.Jobportal.DAO.CustomerRepositoryDao;
 import com.Jobportal.Entities.Application;
 import com.Jobportal.Entities.CustomerImage;
 import com.Jobportal.Entities.JobPosition;
@@ -30,10 +31,10 @@ public class JobSeekerRestController {
 
 	@Autowired
 	JobSeekerProfileServices _jobSeekerProfileServices;
-	
+
 	@Autowired
 	private FileArchiveService fileArchiveService;
-	
+
 	@Autowired
 	private CustomerRepositoryDao customerRepository;
 
@@ -82,13 +83,12 @@ public class JobSeekerRestController {
 	public int applyfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile,
 			@ModelAttribute("currentResume") MultipartFile resume, Model model,
 			@RequestBody Application _jobApplication) {
-		Application reqApplication = _jobApplication;
 
 		Application _newApplication = new Application();
-		_newApplication.setJobPosition(reqApplication.getJobPosition());
+		_newApplication.setJobPosition(_jobApplication.getJobPosition());
 		_newApplication.setJobSeeker(currentUserProfile);
-		_newApplication.setStatus(reqApplication.getStatus());
-		_newApplication.setResumeKey(reqApplication.getResumeKey());
+		_newApplication.setStatus(_jobApplication.getStatus());
+		_newApplication.setResumeKey(_jobApplication.getResumeKey());
 		Set<Application> listApplications = currentUserProfile.getApplications();
 		listApplications.add(_newApplication);
 		_jobSeekerProfileServices.updateSeeker(currentUserProfile);
@@ -113,7 +113,8 @@ public class JobSeekerRestController {
 	}
 
 	@RequestMapping(value = "/uploadCurrentResume", method = RequestMethod.POST)
-	public String uploadCurrentResume(@RequestBody MultipartFile doc, Model model) throws IOException {
+	public String uploadCurrentResume(@RequestParam(value = "image", required = true) MultipartFile doc, Model model)
+			throws IOException {
 		model.addAttribute("currentResume", doc);
 		CustomerImage customerImage = fileArchiveService.saveFileToS3(doc);
 		customerRepository.save(customerImage);

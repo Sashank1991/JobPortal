@@ -4,12 +4,9 @@
 
 <div class="modal-body">
 	<div>
-		<form action="http://localhost:8080/uploadCurrentResume" method="post"
-			enctype="multipart/form-data">
-
+		<form id="fileUpload" action="javascript:;"
+			enctype="multipart/form-data" method="post" accept-charset="utf-8">
 			<input type="file" name="image" />
-
-			<button class="btn btn-primary" type="submit">Upload</button>
 		</form>
 	</div>
 	<form role="form">
@@ -51,4 +48,6 @@
 <div class="modal-footer">
 	<button class="btn btn-primary" ng-click="ok()">Submit</button>
 	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	<button class="btn btn-primary" ng-click="upload()">Upload
+		Resume</button>
 </div>

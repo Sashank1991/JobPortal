@@ -11,6 +11,9 @@
 	document.write('<base href="' + document.location + '" />');
 </script>
 
+<script src="js/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
 <script data-require="angular.js@1.5.x"
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js"
 	data-semver="1.5.11"></script>
@@ -141,7 +144,7 @@
 											<td><span ng-bind="item.officeLocation"></span></td>
 											<td><span ng-bind="item.salary"></span></td>
 											<td><button class="btn btn-default"
-													ng-click="showModal()">Apply</button></td>
+													ng-click="showModal(item)">Apply</button></td>
 											<!-- ng-click="">Apply</button></td> -->
 
 										</tr>

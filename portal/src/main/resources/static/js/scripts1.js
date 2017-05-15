@@ -2,6 +2,8 @@ var RequestData = {
 
 }
 
+var ResumeString = "";
+
 // Empty JS for your own code to be here
 var application = {
 	userId : null,
@@ -60,6 +62,7 @@ app.controller('userProfile', function($scope, $modal, $http) {
 		}, function errorCallback(response) {
 			alert("Error Occured");
 		});
+
 	};
 	$scope.saveFavinFav = function() {
 
@@ -91,7 +94,7 @@ app.controller('userProfile', function($scope, $modal, $http) {
 
 		var application = {
 			status : "pending",
-			resumeKey : "1.1.1.1",
+			resumeKey : ResumeString,
 			jobPosition : jobitem
 		}
 
@@ -104,6 +107,7 @@ app.controller('userProfile', function($scope, $modal, $http) {
 				$scope.fetchProfile();
 				alert("Updated Successfully");
 			}
+			return false;
 		}, function errorCallback(response) {
 			alert("Error Occured");
 		});
@@ -166,5 +170,18 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item) {
 
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
+	};
+
+	$scope.upload = function() {
+		$('#fileUpload').ajaxForm({
+			url : 'http://localhost:8080/uploadCurrentResume', // or whatever
+			contentType : false,
+			success : function(response) {
+				ResumeString = response;
+				alert("Uploded Successfully");
+			}
+		});
+		$("#fileUpload").submit()
+		return false;
 	};
 }
