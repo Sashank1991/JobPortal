@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.Jobportal.DAO.CustomerRepositoryDao;
+import com.Jobportal.Dao.CustomerRepositoryDao;
 import com.Jobportal.Entities.Application;
 import com.Jobportal.Entities.CustomerImage;
 import com.Jobportal.Entities.JobPosition;
