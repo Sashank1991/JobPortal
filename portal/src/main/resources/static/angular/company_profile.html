@@ -1,0 +1,110 @@
+<div class="container" ng-controller="profileCtrl">
+
+    <div class="col-md-2 col-xs-1"></div>
+
+    <div class="col-md-8 col-xs-10">
+
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;Company Profile</h5>
+                </div>
+            </div>
+
+            <div class="panel-body" style="background: #FDFDFD">
+
+                <form class="form-horizontal" ng-submit="update()"
+                      style="background: white; margin-top: 20px; margin-bottom: 20px; padding: 20px">
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-6 control-label" for="name">Name</label>
+                        <div class="col-md-4 col-xs-6">
+                            <input id="name" name="name"
+                                   class="form-control input-md" type="text" ng-model="name"
+                                   ng-disabled="disabled" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-6 control-label" for="website">Website</label>
+                        <div class="col-md-4 col-xs-6">
+                            <input id="website" name="website" class="form-control input-md"
+                                   type="text" ng-model="website" ng-disabled="disabled" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-6 control-label" for="logoImageURL">Logo Image URL</label>
+                        <div class="col-md-4 col-xs-6">
+                            <input id="logoImageURL" name="logoImageURL" class="form-control input-md"
+                                   type="text" ng-model="logoImageURL" ng-disabled="disabled"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-6 control-label" for="description">Description</label>
+                        <div class="col-md-4 col-xs-6">
+					<textarea class="form-control" id="description" name="description"
+                              ng-model="description" ng-disabled="disabled"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-6 control-label" for="contact">Contact
+                            No.</label>
+                        <div class="col-md-4 col-xs-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">+1</span> <input id="contact"
+                                                                                 name="contact" class="form-control"
+                                                                                 required
+                                                                                 type="text"
+                                                                                 ng-model="contact"
+                                                                                 ng-disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-6 control-label" for="addressHQ">Address of Head Quarters</label>
+                        <div class="col-md-4 col-xs-6">
+					<textarea class="form-control" id="addressHQ" name="addressHQ"
+                              ng-model="addressHQ" ng-disabled="disabled"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px">
+                        <div class="col-md-2 col-xs-2"></div>
+                        <div class="col-md-4 col-xs-6 text-right">
+                            <button style="margin-right: 10px" type="button"
+                                    class="btn btn-primary" ng-click="edit()">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true">&nbsp;</span>Edit
+                            </button>
+                        </div>
+                        <div class="col-md-4 col-xs-6 text-left">
+                            <button style="margin-left: -10px" type="submit"
+                                    class="btn btn-primary" ng-disabled="disabled">
+                                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true">&nbsp;</span>Update
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success text-center" role="alert"
+                         ng-hide="successMsg">Well done! Company profile updated sucessfully.
+                    </div>
+                    <div class="alert alert-danger text-center" role="alert"
+                         ng-hide="failureMsg">Oh snap! Please try again.
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-2 col-xs-1"></div>
+
+</div>

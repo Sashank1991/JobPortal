@@ -1,0 +1,61 @@
+<div class="container" ng-controller="browseJobCtrl">
+
+    <div class="col-xs-2 col-md-2"></div>
+
+    <div class="col-xs-8 col-md-8">
+
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp; All Jobs</h5>
+                </div>
+            </div>
+
+            <div class="alert alert-info text-center" role="alert"
+                 ng-hide=loadFailMsg
+                 style="margin-top: 10px; margin-left: 10px; margin-right: 10px">Sorry!
+                Please refresh the page to view all Job Positions.
+            </div>
+
+            <div class="panel-body" style="background: #FDFDFD">
+
+                <div class="row" ng-repeat="jobPosition in jobPositions"
+                     style="border: 2px solid #CDE7F5; margin: 5px">
+
+                    <div class="col-xs-8 col-md-8">
+                        <h4 class="product-name">
+                            <strong>{{jobPosition.title}}</strong>
+                        </h4>
+                        <h4>
+                            <small>{{jobPosition.description}}</small>
+                        </h4>
+                        <h4>
+                            <small><em>{{jobPosition.responsibilities}}</em></small>
+                        </h4>
+                    </div>
+                    <div class="col-xs-4 col-md-4">
+                        <h5>
+                            <strong>Salary: </strong>${{jobPosition.salary}}
+                        </h5>
+                        <h5>
+                            <strong>Office Location: </strong>{{jobPosition.officeLocation}}
+                        </h5>
+                        <a type="button" class="btn btn-primary"
+                           href="#jobDetail/{{jobPosition.jobId}}">
+                            View Details &nbsp; <span class="glyphicon glyphicon-chevron-right"/>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xs-4 col-md-4"></div>
+
+
+</div>

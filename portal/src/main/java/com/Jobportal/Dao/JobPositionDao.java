@@ -10,4 +10,7 @@ import java.util.List;
 public interface JobPositionDao extends CrudRepository<JobPosition, Long> {
 
     List<JobPosition> findByCompany(Company company);
+
+    JobPosition findByJobId(int jobId);
+
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -20,15 +21,18 @@ public class Company extends User{
     @Column
     private String website;
 
-    @Column
+    @Column(name="logo_image_url")
     private String logoImageURL;
 
-    @Column
+    @Column(name="address_hq")
     private String addressHQ;
 
     @Column
     private String contact;
-    
+
+    @Column
+    private String description;
+
     @OneToMany(mappedBy = "company")
     private List<JobPosition> jobPositions;
 
@@ -64,6 +68,7 @@ public class Company extends User{
         this.addressHQ = addressHQ;
     }
 
+    @JsonIgnore
 	@JsonIgnoreProperties({ "jobSeeker","company" })
     public List<JobPosition> getJobPositions() {
         return jobPositions;
@@ -79,6 +84,14 @@ public class Company extends User{
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

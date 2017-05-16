@@ -16,7 +16,7 @@ public class CompanyController {
     @Autowired
     CompanyService _companyService;
 
-    @RequestMapping("/c")
+    @RequestMapping("/companyHome")
     public String companyHome(Model model) {
         Company company = _companyService.getCompany(1);
         model.addAttribute("currentCompany", company);

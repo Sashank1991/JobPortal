@@ -26,8 +26,8 @@ public class JobPositionService {
         return _jobPositionDao.save(jobPosition);
     }
 
-    public JobPosition getJobDetail(Long jobId) {
-        return _jobPositionDao.findOne(jobId);
+    public JobPosition getJobDetail(int jobId) {
+        return _jobPositionDao.findByJobId(jobId);
     }
 
     public List<JobPosition> getAllPositions(Company company) {
