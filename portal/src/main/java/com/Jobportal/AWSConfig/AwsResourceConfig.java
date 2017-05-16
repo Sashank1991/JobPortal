@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ImportResource("classpath:/aws-config.xml")
-@EnableRdsInstance(databaseName = "${database-name:fileuploadtest}", 
+@EnableRdsInstance(databaseName = "${database-name:275proj1}",
                    dbInstanceIdentifier = "${db-instance-identifier:fileupload}", 
 				   password = "${rdsPassword:password}")
 public class AwsResourceConfig {

@@ -10,108 +10,120 @@ import java.util.List;
 @Table(name = "JobPosition")
 public class JobPosition {
 
-	@Id
-	@GeneratedValue
-	@Column
-	private int jobId;
+    @Id
+    @GeneratedValue
+    @Column
+    private int jobId;
 
-	@Column
-	private String title;
+    @Column
+    private String title;
 
-	@Column
-	private String description;
+    @Column
+    private String description;
 
-	@Column
-	private String responsibilities;
+    @Column
+    private String responsibilities;
 
-	@Column
-	private String officeLocation;
+    @Column
+    private String officeLocation;
 
-	@Column
-	private String salary;
+    @Column
+    private String salary;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "companyId")
-	private Company company;
+    @Column(name="status", columnDefinition = "int default 1")
+    private int status;
 
-	@OneToMany(mappedBy = "jobPosition")
-	private List<Application> applications;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "companyId")
+    private Company company;
 
-	@JsonIgnore
-	@ManyToMany(mappedBy = "favoriteJobs")
-	private List<JobSeeker> jobSeekers;
+    @OneToMany(mappedBy = "jobPosition")
+    private List<Application> applications;
 
-	public int getJobId() {
-		return jobId;
-	}
+    @JsonIgnore
+    @ManyToMany(mappedBy = "favoriteJobs")
+    private List<JobSeeker> jobSeekers;
 
-	public void setJobId(int jobId) {
-		this.jobId = jobId;
-	}
+    public int getJobId() {
+        return jobId;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setJobId(int jobId) {
+        this.jobId = jobId;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getResponsibilities() {
-		return responsibilities;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setResponsibilities(String responsibilities) {
-		this.responsibilities = responsibilities;
-	}
+    public String getResponsibilities() {
+        return responsibilities;
+    }
 
-	public String getOfficeLocation() {
-		return officeLocation;
-	}
+    public void setResponsibilities(String responsibilities) {
+        this.responsibilities = responsibilities;
+    }
 
-	public void setOfficeLocation(String officeLocation) {
-		this.officeLocation = officeLocation;
-	}
+    public String getOfficeLocation() {
+        return officeLocation;
+    }
 
-	public String getSalary() {
-		return salary;
-	}
+    public void setOfficeLocation(String officeLocation) {
+        this.officeLocation = officeLocation;
+    }
 
-	public void setSalary(String salary) {
-		this.salary = salary;
-	}
+    public String getSalary() {
+        return salary;
+    }
 
-	@JsonIgnoreProperties({ "jobPositions" })
-	public Company getCompany() {
-		return company;
-	}
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
 
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-	@JsonIgnoreProperties({ "jobPosition" })
-	public List<Application> getApplications() {
-		return applications;
-	}
+    @JsonIgnoreProperties({"jobPositions"})
+    public Company getCompany() {
+        return company;
+    }
 
-	public void setApplications(List<Application> applications) {
-		this.applications = applications;
-	}
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
-	public List<JobSeeker> getJobSeekers() {
-		return jobSeekers;
-	}
+    @JsonIgnoreProperties({"jobPosition"})
+    public List<Application> getApplications() {
+        return applications;
+    }
 
-	public void setJobSeekers(List<JobSeeker> jobSeekers) {
-		this.jobSeekers = jobSeekers;
-	}
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
+    }
+
+    public List<JobSeeker> getJobSeekers() {
+        return jobSeekers;
+    }
+
+    public void setJobSeekers(List<JobSeeker> jobSeekers) {
+        this.jobSeekers = jobSeekers;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
 }

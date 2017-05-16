@@ -26,6 +26,8 @@ public class Company extends User{
     @Column
     private String addressHQ;
 
+    @Column
+    private String contact;
     
     @OneToMany(mappedBy = "company")
     private List<JobPosition> jobPositions;
@@ -61,6 +63,7 @@ public class Company extends User{
     public void setAddressHQ(String addressHQ) {
         this.addressHQ = addressHQ;
     }
+
 	@JsonIgnoreProperties({ "jobSeeker","company" })
     public List<JobPosition> getJobPositions() {
         return jobPositions;
@@ -68,6 +71,14 @@ public class Company extends User{
 
     public void setJobPositions(List<JobPosition> jobPositions) {
         this.jobPositions = jobPositions;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
 }

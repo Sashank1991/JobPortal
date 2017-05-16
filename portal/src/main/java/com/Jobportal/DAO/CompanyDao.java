@@ -6,6 +6,6 @@ import com.Jobportal.Entities.Company;
 
 public interface CompanyDao extends CrudRepository<Company, Long> {
 
-	public Company findByuserId(int user_id);
+	Company findByUserId(int userId);
 
 }

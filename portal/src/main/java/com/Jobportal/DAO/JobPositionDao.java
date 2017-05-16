@@ -1,11 +1,13 @@
 package com.Jobportal.Dao;
 
+import com.Jobportal.Entities.Company;
 import org.springframework.data.repository.CrudRepository;
 
 import com.Jobportal.Entities.JobPosition;
 
-public interface JobPositionDao extends CrudRepository<JobPosition,Long>
-{
+import java.util.List;
 
-	public JobPosition findByjobId(int jobId);
+public interface JobPositionDao extends CrudRepository<JobPosition, Long> {
+
+    List<JobPosition> findByCompany(Company company);
 }

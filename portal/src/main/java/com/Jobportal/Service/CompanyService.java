@@ -11,10 +11,16 @@ import com.Jobportal.Entities.Company;
 @Service
 @Configurable
 public class CompanyService {
-	@Autowired
-	CompanyDao _companyDaoDao;
 
-	public Company getSeeker(int seekerId) {
-		return _companyDaoDao.findByuserId(seekerId);
-	}
+    @Autowired
+    CompanyDao _companyDaoDao;
+
+    public Company getCompany(int userId) {
+        return _companyDaoDao.findByUserId(userId);
+    }
+
+    public Company createOrUpdate(Company company) {
+        return _companyDaoDao.save(company);
+    }
+
 }
