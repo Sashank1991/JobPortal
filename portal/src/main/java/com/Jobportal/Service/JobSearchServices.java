@@ -21,15 +21,13 @@ import com.Jobportal.Entities.JobPosition;
 @Service
 @Configurable
 public class JobSearchServices {
-	
+
 	@Autowired
 	JobSearchDao _jobSearchDao;
-	public List<JobPosition> findJobs(String searchString) {
-		System.out.println(searchString);
-		List<String> test = new ArrayList<>();
-		test.add("");
-		List<JobPosition> l = _jobSearchDao.findJobs(searchString, test, test,"0","1234567");
-		System.out.println(l);
-		return l; 
+
+	public List<JobPosition> findJobs(String searchString, List<String> company, List<String> officeLocation,
+			String minSal, String maxSal) {
+		List<JobPosition> l = _jobSearchDao.findJobs(searchString, company, officeLocation, minSal, maxSal);
+		return l;
 	}
 }

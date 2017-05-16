@@ -17,227 +17,232 @@
 <script data-require="angular.js@1.5.x"
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js"
 	data-semver="1.5.11"></script>
-<script
-	src="https://cdn.rawgit.com/danialfarid/ng-file-upload/4cdec8f23fbb2558870b769d5ae59e03c3ab0e44/dist/ng-file-upload.js"></script>
+
+
+<script src="http://ui-grid.info/release/ui-grid.js"></script>
 
 <script src="http://code.angularjs.org/1.2.4/angular-route.js"></script>
 <script
 	src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
-
+<script src="js/multiselect.js"></script>
 <script src="js/scripts1.js"></script>
 
 <link href="css/style.css" rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
+<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css"
+	type="text/css" />
+
+
+
 </head>
 <body>
-	<nav class="navbar navbar-inverse" role="navigation"
-		style="position: absolute !important; top: 5px; width: 98%; margin: 1%">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
-					class="icon-bar"></span><span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Job Portal</a>
-		</div>
-
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#divUserProfile">Profile</a></li>
-				<li><a href="#divFav">Favorite Positions</a></li>
-				<li><a href="#divApplied">Applied Positions</a></li>
-				<li><a href="#divOpenings">New Openings</a></li>
-			</ul>
-			<form class="navbar-form navbar-right" role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" />
-				</div>
-				<button type="submit" class="btn btn-default">Search</button>
-			</form>
-		</div>
-	</nav>
 	<div ng-app="jobSeeker" ng-controller="userProfile"
 		data-ng-init="init()">
-		<div style="height: 80vh; margin-top: 5%; overflow: hidden;">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel panel-default"
-							style="height: 80vh; overflow: auto;" id="divUserProfile">
-							<div class="panel-heading">
-								<h3 class="panel-title">User Profile</h3>
-							</div>
-							<div class="panel-body">
-								<div>
-									<form role="form">
+		<nav class="navbar navbar-default" role="navigation"
+			style="position: absolute !important; top: 5px; width: 98%; margin: 1%">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span><span
+						class="icon-bar"></span><span class="icon-bar"></span><span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Job Portal</a>
+			</div>
 
-										<div class="form-group">
-											<button type="submit" class="btn btn-primary"
-												ng-click="saveProfile()">Save Profile</button>
-										</div>
-										<div class="form-group">
-											<img ng-src="{{profile.picKey}}" alt="Mountain View"
-												style="width: 150px; height: 150px;" />
-										</div>
-										<div class="form-group">
-											<label> First Name </label> <input type="text"
-												ng-model="profile.firstName" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label> Last Name </label> <input type="text"
-												ng-model="profile.lastName" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label> Self Introduction </label> <input type="text"
-												ng-model="profile.selfIntroduction" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label> Work experience </label> <input type="text"
-												ng-model="profile.workExperience" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label> Education </label> <input type="text"
-												ng-model="profile.education" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label> Skills </label> <input type="text"
-												ng-model="profile.skills" class="form-control" />
-										</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#divUserProfile">Profile</a></li>
+					<li><a href="#divFav">Favorite Positions</a></li>
+					<li><a href="#divApplied">Applied Positions</a></li>
+					<li><a href="#divOpenings">New Openings</a></li>
+				</ul>
+				<form class="navbar-form navbar-right" role="search">
 
-									</form>
+					<div class="form-group">
+						<input type="text" class="form-control" id="txtSearch" />
+					</div>
+					<button type="submit" class="btn btn-default"
+						ng-click="searchJobs()">Search</button>
+
+				</form>
+			</div>
+		</nav>
+		<div>
+			<div style="height: 80vh; margin-top: 5%; overflow: hidden;">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-default"
+								style="height: 80vh; overflow: auto;" id="divUserProfile">
+								<div class="panel-heading">
+									<h3 class="panel-title">User Profile</h3>
+								</div>
+								<div class="panel-body">
+									<div>
+										<form role="form">
+
+											<div class="form-group">
+												<button type="submit" class="btn btn-default"
+													ng-click="saveProfile()">Save Profile</button>
+											</div>
+											<div class="form-group">
+												<img ng-src="{{profile.picKey}}" alt="Mountain View"
+													style="width: 150px; height: 150px;" />
+											</div>
+											<div class="form-group">
+												<label> First Name </label> <input type="text"
+													ng-model="profile.firstName" class="form-control" />
+											</div>
+											<div class="form-group">
+												<label> Last Name </label> <input type="text"
+													ng-model="profile.lastName" class="form-control" />
+											</div>
+											<div class="form-group">
+												<label> Self Introduction </label> <input type="text"
+													ng-model="profile.selfIntroduction" class="form-control" />
+											</div>
+											<div class="form-group">
+												<label> Work experience </label> <input type="text"
+													ng-model="profile.workExperience" class="form-control" />
+											</div>
+											<div class="form-group">
+												<label> Education </label> <input type="text"
+													ng-model="profile.education" class="form-control" />
+											</div>
+											<div class="form-group">
+												<label> Skills </label> <input type="text"
+													ng-model="profile.skills" class="form-control" />
+											</div>
+
+										</form>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="panel panel-default" style="height: 80vh;" id="divFav">
-							<div class="panel-heading">
-								<h3 class="panel-title">Interested Positions</h3>
-							</div>
-							<div class="panel-body">
-								<div class="form-group">
-									<button type="submit" class="btn btn-primary"
-										ng-click="saveFavinFav()">Update Favorites List</button>
+							<div class="panel panel-default" style="height: 80vh;"
+								id="divFav">
+								<div class="panel-heading">
+									<h3 class="panel-title">Interested Positions</h3>
 								</div>
-								<table class="table">
-									<thead>
-										<tr>
-											<th>My Fav</th>
-											<th>Name</th>
-											<th>Title</th>
-											<th>Description</th>
-											<th>Responsibilities</th>
-											<th>Office location</th>
-											<th>Salary</th>
-											<th>Apply</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="item in favoriteJobs">
-											<td><input type="checkbox" ng-model="item.checked"></input></td>
-											<td><span ng-bind="item.company.name"></span></td>
-											<td><span ng-bind="item.title"></span></td>
-											<td><span ng-bind="item.description"></span></td>
-											<td><span ng-bind="item.responsibilities"></span></td>
-											<td><span ng-bind="item.officeLocation"></span></td>
-											<td><span ng-bind="item.salary"></span></td>
-											<td><button class="btn btn-primary"
-													ng-click="showModal(item)">Apply</button></td>
-											<!-- ng-click="">Apply</button></td> -->
+								<div class="panel-body">
+									<div class="form-group">
+										<button type="submit" class="btn btn-default"
+											ng-click="saveFavinFav()">Update Favorites List</button>
+									</div>
+									<table class="table">
+										<thead>
+											<tr>
+												<th>My Fav</th>
+												<th>Name</th>
+												<th>Title</th>
+												<th>Description</th>
+												<th>Responsibilities</th>
+												<th>Office location</th>
+												<th>Salary</th>
+												<th>Apply</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="item in favoriteJobs">
+												<td><input type="checkbox" ng-model="item.checked"></input></td>
+												<td><span ng-bind="item.company.name"></span></td>
+												<td><span ng-bind="item.title"></span></td>
+												<td><span ng-bind="item.description"></span></td>
+												<td><span ng-bind="item.responsibilities"></span></td>
+												<td><span ng-bind="item.officeLocation"></span></td>
+												<td><span ng-bind="item.salary"></span></td>
+												<td><button class="btn btn-default"
+														ng-click="showModal(item)">Apply</button></td>
+												<!-- ng-click="">Apply</button></td> -->
 
-										</tr>
+											</tr>
 
-									</tbody>
-								</table>
+										</tbody>
+									</table>
+								</div>
 							</div>
-						</div>
-						<div class="panel panel-default" style="height: 80vh;"
-							id="divApplied">
-							<div class="panel-heading">
-								<h3 class="panel-title">Applied Positions</h3>
-							</div>
-							<div class="panel-body">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Title</th>
-											<th>Description</th>
-											<th>Responsibilities</th>
-											<th>Office location</th>
-											<th>Salary</th>
-											<th>Status</th>
-											<th>Cancel/Reject</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr ng-repeat="item in applications">
-											<td><span ng-bind="item.jobPosition.company.name"></span></td>
-											<td><span ng-bind="item.jobPosition.title"></span></td>
-											<td><span ng-bind="item.jobPosition.description"></span></td>
-											<td><span ng-bind="item.jobPosition.responsibilities"></span></td>
-											<td><span ng-bind="item.jobPosition.officeLocation"></span></td>
-											<td><span ng-bind="item.jobPosition.salary"></span></td>
-											<td><span ng-bind="item.status"></span></td>
-											<td><button class="btn btn-danger"
-													ng-click="cancelApplied(item)">Cancel</button></td>
-										</tr>
+							<div class="panel panel-default" style="height: 80vh;"
+								id="divApplied">
+								<div class="panel-heading">
+									<h3 class="panel-title">Applied Positions</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Title</th>
+												<th>Description</th>
+												<th>Responsibilities</th>
+												<th>Office location</th>
+												<th>Salary</th>
+												<th>Status</th>
+												<th>Cancel/Reject</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="item in applications">
+												<td><span ng-bind="item.jobPosition.company.name"></span></td>
+												<td><span ng-bind="item.jobPosition.title"></span></td>
+												<td><span ng-bind="item.jobPosition.description"></span></td>
+												<td><span ng-bind="item.jobPosition.responsibilities"></span></td>
+												<td><span ng-bind="item.jobPosition.officeLocation"></span></td>
+												<td><span ng-bind="item.jobPosition.salary"></span></td>
+												<td><span ng-bind="item.status"></span></td>
+												<td><button class="btn btn-default"
+														ng-click="cancelApplied(item)">Cancel</button></td>
+											</tr>
 
-									</tbody>
-								</table>
+										</tbody>
+									</table>
+								</div>
 							</div>
-						</div>
 
-						<div class="panel panel-default" style="height: 80vh;"
-							id="divOpenings">
-							<div class="panel-heading">
-								<h3 class="panel-title">Available Positions</h3>
-							</div>
-							<div class="panel-body">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>Product</th>
-											<th>Payment Taken</th>
-											<th>Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td>TB - Monthly</td>
-											<td>01/04/2012</td>
-											<td>Default</td>
-										</tr>
-										<tr class="active">
-											<td>1</td>
-											<td>TB - Monthly</td>
-											<td>01/04/2012</td>
-											<td>Approved</td>
-										</tr>
-										<tr class="success">
-											<td>2</td>
-											<td>TB - Monthly</td>
-											<td>02/04/2012</td>
-											<td>Declined</td>
-										</tr>
-										<tr class="warning">
-											<td>3</td>
-											<td>TB - Monthly</td>
-											<td>03/04/2012</td>
-											<td>Pending</td>
-										</tr>
-										<tr class="danger">
-											<td>4</td>
-											<td>TB - Monthly</td>
-											<td>04/04/2012</td>
-											<td>Call in to confirm</td>
-										</tr>
-									</tbody>
-								</table>
+							<div class="panel panel-default" style="height: 80vh;overflow: auto;"
+								id="divOpenings">
+								<div class="panel-heading">
+									<h3 class="panel-title">Available Positions</h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-group">
+										<button type="submit" class="btn btn-default"
+											ng-click="saveFavinSearch()">Update Favorites List</button>
+									</div>
+
+									<div>
+										<h4>filter by company Name</h4>
+										<label ng-repeat="role in companiesFilter"> <input
+											type="checkbox" checklist-model="selectedCompaniesFilter"
+											checklist-value="role" /> {{role}} &nbsp;
+										</label>
+									</div>
+
+									<div>
+										<h4>filter by Job Location</h4>
+										<label ng-repeat="role in searchLocations"> <input
+											type="checkbox" checklist-model="selectedSearchLocations"
+											checklist-value="role" /> {{role}} &nbsp;
+										</label>
+									</div>
+									<div>
+										<h4>filter by Salary</h4>
+										<div class="form-group">
+											<label> Minimum Salary </label> <input type="text"
+												ng-model="minSalFilter" class="form-control" />
+										</div>
+										<div class="form-group">
+											<label> Max Salary </label> <input type="text"
+												ng-model="maxSalFilter" class="form-control" />
+										</div>
+									</div>
+									<div>
+										<div ui-grid="gridOptions1" class="myGrid"></div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
