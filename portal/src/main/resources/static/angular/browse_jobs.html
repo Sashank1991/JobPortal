@@ -1,15 +1,55 @@
 <div class="container" ng-controller="browseJobCtrl">
 
-    <div class="col-xs-2 col-md-2"></div>
+    <div class="col-xs-1 col-md-2"></div>
 
-    <div class="col-xs-8 col-md-8">
+    <div class="col-xs-10 col-md-8">
 
         <div class="panel panel-info">
 
             <div class="panel-heading">
+
                 <div class="panel-title">
-                    <h5>&nbsp;&nbsp;&nbsp;&nbsp; All Jobs</h5>
+
+                    <div class="row" style="padding:4px">
+
+                        <div class="col-md-3"><h4>&nbsp;&nbsp;&nbsp;&nbsp;Filters</h4></div>
+
+                        <div class="col-md-2">
+
+                            <label style="margin-top: 5px">
+                                Open &nbsp;
+                                <input type="checkbox" ng-model="jobStatus.open">
+                            </label>
+
+                        </div>
+                        <div class="col-md-2">
+
+                            <label style="margin-top: 5px">
+                                Closed &nbsp;
+                                <input type="checkbox" ng-model="jobStatus.closed">
+                            </label>
+
+                        </div>
+                        <div class="col-md-2">
+
+                            <label style="margin-top: 5px">
+                                Filled &nbsp;
+                                <input type="checkbox" ng-model="jobStatus.filled">
+                            </label>
+
+                        </div>
+
+                        <div class="col-md-3 text-right">
+                            <button class="btn btn-primary btn-block" ng-click="applyFilters()">
+                                Apply &nbsp;<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+
+
+                    </div>
+
                 </div>
+
             </div>
 
             <div class="alert alert-info text-center" role="alert"
@@ -23,27 +63,27 @@
                 <div class="row" ng-repeat="jobPosition in jobPositions"
                      style="border: 2px solid #CDE7F5; margin: 5px">
 
-                    <div class="col-xs-8 col-md-8">
-                        <h4 class="product-name">
-                            <strong>{{jobPosition.title}}</strong>
+                    <div class="col-xs-6 col-md-6">
+                        <h4>
+                            Title: <strong>{{jobPosition.title}}</strong>
                         </h4>
                         <h4>
-                            <small>{{jobPosition.description}}</small>
+                            <small>Description: {{jobPosition.description}}</small>
                         </h4>
                         <h4>
-                            <small><em>{{jobPosition.responsibilities}}</em></small>
+                            <small>Responsibilites: <em>{{jobPosition.responsibilities}}</em></small>
                         </h4>
                     </div>
-                    <div class="col-xs-4 col-md-4">
+                    <div class="col-xs-6 col-md-6 text-right">
                         <h5>
-                            <strong>Salary: </strong>${{jobPosition.salary}}
+                            Salary: <strong>${{jobPosition.salary}}</strong>
                         </h5>
                         <h5>
-                            <strong>Office Location: </strong>{{jobPosition.officeLocation}}
+                            Location: <strong>{{jobPosition.officeLocation}}</strong>
                         </h5>
                         <a type="button" class="btn btn-primary"
                            href="#jobDetail/{{jobPosition.jobId}}">
-                            View Details &nbsp; <span class="glyphicon glyphicon-chevron-right"/>
+                            View Detail &nbsp; <span class="glyphicon glyphicon-chevron-right"/>
                         </a>
                     </div>
 
@@ -55,7 +95,7 @@
 
     </div>
 
-    <div class="col-xs-4 col-md-4"></div>
+    <div class="col-xs-1 col-md-2"></div>
 
 
 </div>

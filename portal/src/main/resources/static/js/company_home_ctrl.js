@@ -14,14 +14,32 @@ companyHome.config(function ($routeProvider) {
     });
 });
 
+companyHome.directive('setHeight', function ($window) {
+    return {
+        link: function (scope, element) {
+            element.css('height', ($window.innerHeight - 100) + 'px');
+        }
+    }
+});
+
 companyHome.controller("companyHomeCtrl", function ($scope) {
 });
 
 companyHome.controller("browseJobCtrl", function ($scope, $http) {
 
+    // local copy
+    var allPositions = [];
+
     $scope.successMsg = true;
     $scope.failureMsg = true;
     $scope.loadFailMsg = true;
+
+    // default filer criteria
+    $scope.jobStatus = {
+        closed: "true",
+        open: "true",
+        filled: "true"
+    }
 
     // fetch all job positions
     $http({
@@ -33,12 +51,50 @@ companyHome.controller("browseJobCtrl", function ($scope, $http) {
         $scope.jobPositions = [];
         $scope.jobPositions = data;
 
+        allPositions = $scope.jobPositions.slice();
+
         $scope.loadFailMsg = true;
 
     }).error(function (error) {
 
         $scope.loadFailMsg = false;
     });
+
+
+    $scope.applyFilters = function () {
+
+        $scope.jobPositions.splice(0, $scope.jobPositions.length);
+
+        console.log($scope.jobStatus);
+
+        if ($scope.jobStatus.closed) {
+
+            for (var i = 0; i < allPositions.length; i++) {
+                if (allPositions[i].status == 0) {
+                    $scope.jobPositions.push(allPositions[i]);
+                }
+            }
+        }
+
+        if ($scope.jobStatus.open) {
+
+            for (var i = 0; i < allPositions.length; i++) {
+                if (allPositions[i].status == 1) {
+                    $scope.jobPositions.push(allPositions[i]);
+                }
+            }
+        }
+
+        if ($scope.jobStatus.filled) {
+
+            for (var i = 0; i < allPositions.length; i++) {
+                if (allPositions[i].status == 2) {
+                    $scope.jobPositions.push(allPositions[i]);
+                }
+            }
+        }
+
+    };
 
 });
 
@@ -173,6 +229,8 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams) {
         url: '/jobPosition/' + $routeParams.id
 
     }).success(function (data) {
+
+        console.log(data);
 
         if (data.statusCode === 404) {
 

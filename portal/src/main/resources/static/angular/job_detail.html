@@ -1,14 +1,12 @@
-<div class="container" ng-controller="jobDetailCtrl">
+<div ng-controller="jobDetailCtrl">
 
-    <div class="col-md-2 col-xs-1"></div>
+    <div class="col-md-6 col-xs-6">
 
-    <div class="col-md-8 col-xs-10">
-
-        <div class="panel panel-info">
+        <div class="panel panel-info" set-height>
 
             <div class="panel-heading">
                 <div class="panel-title">
-                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;Job Position Details</h5>
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;Job Post Detail</h5>
                 </div>
             </div>
 
@@ -98,6 +96,76 @@
 
     </div>
 
-    <div class="col-md-2 col-xs-1"></div>
+    <div class="col-md-6 col-xs-6" set-height style="overflow-y:auto;">
+
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp; Applications Received</h5>
+                </div>
+            </div>
+
+            <div class="panel-body" style="background: #FDFDFD">
+
+                <div class="row" ng-repeat="application in data.applications"
+                     style="border: 2px solid #CDE7F5; margin: 3px; padding-bottom: 5px">
+
+                    <div class="row" style="margin: 2px">
+
+                        <div class="col-xs-7 col-md-7">
+                            <h5>
+                                Name: <strong>{{application.jobSeeker.firstName}}&nbsp;
+                                {{application.jonSeeker.lastName}}</strong>
+                            </h5>
+                            <h5>
+                                Education: <strong>{{application.jobSeeker.education}}</strong>
+                            </h5>
+                            <h4>
+                                <small>Email: <strong><em>{{application.jobSeeker.email}}</em></strong></small>
+                            </h4>
+                        </div>
+                        <div class="col-xs-5 col-md-5">
+                            <h5>
+                                Skills: <strong>{{application.jobSeeker.skills}}</strong>
+                            </h5>
+                            <h5>
+                                Work Experience: <strong>{{application.jobSeeker.workExperience}}</strong>
+                            </h5>
+                            <a type="button" class="btn btn-primary"
+                               href="{{application.resumeKey}}">
+                                View Resume &nbsp; <span class="glyphicon glyphicon-chevron-right"/>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-xs-6 col-md-6 text-center">
+                            <a type="button" class="btn btn-success"
+                            >
+                                Accept &nbsp; <span class="glyphicon glyphicon-ok"/>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-md-6 text-center">
+
+                            <a type="button" class="btn btn-danger"
+                            >
+                                Decline &nbsp; <span class="glyphicon glyphicon-remove"/>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
