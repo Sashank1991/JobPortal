@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        Company Home
+        Signin- Register Page
     </title>
     <link href="css/style.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
@@ -12,10 +12,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
-    <script src="js/company_home_ctrl.js"></script>
+    <script src="js/sigin_registration_ctrl.js"></script>
 </head>
 
-<body ng-app="companyHome" style="background: #F7F7F7">
+<body ng-app="siginRegister" style="background: #F7F7F7" >
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -33,14 +33,9 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="#companyProfile">Profile</a></li>
-                <li><a href="#postJob">Post Job</a></li>
-                <li><a href="#">Browse Jobs<span class="sr-only">(current)</span></a></li>
-            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/signout"> <span class="glyphicon glyphicon-log-out" aria-hidden="true">&nbsp;</span>
-                    Signout</a></li>
+                <li><a href="#companySigninReg">Company</a></li>
+                <li><a href="#jobSeekerSiginReg">Job Seeker<span class="sr-only">(current)</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

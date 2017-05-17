@@ -22,9 +22,6 @@ companyHome.directive('setHeight', function ($window) {
     }
 });
 
-companyHome.controller("companyHomeCtrl", function ($scope) {
-});
-
 companyHome.controller("browseJobCtrl", function ($scope, $http) {
 
     // local copy

@@ -16,6 +16,8 @@ public abstract class User {
 
 	protected String email;
 
+	protected String password;
+
 	protected String verificationCode;
 
 	protected int status;
@@ -50,6 +52,14 @@ public abstract class User {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
