@@ -54,6 +54,7 @@ public class JobSeekerRestController {
 		currentUserProfile.setFirstName(profile.get("firstName"));
 		currentUserProfile.setLastName(profile.get("lastName"));
 		currentUserProfile.setWorkExperience(profile.get("workExperience"));
+		currentUserProfile.setSelfIntroduction(profile.get("selfIntroduction"));
 		currentUserProfile.setEducation(profile.get("education"));
 		currentUserProfile.setSkills(profile.get("skills"));
 		currentUserProfile.setPicKey(profile.get("picKey"));

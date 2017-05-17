@@ -83,7 +83,7 @@ app
 										});
 
 					};
-
+					
 					$scope.profile = {
 						userId : "",
 						firstName : "",
@@ -316,6 +316,21 @@ app
 							console.log("Modal Closed");
 						});
 					};
+					
+					
+					$scope.uploadPic= function(){
+						$('#fileUploadProfilePic').ajaxForm({
+							url : 'http://localhost:8080/uploadCurrentResume', // or
+																				// whatever
+							contentType : false,
+							success : function(response) {
+								$scope.profile.picKey = response;
+								alert("Uploded Successfully");
+							}
+						});
+						$("#fileUploadProfilePic").submit()	
+						
+					}
 
 				});
 
