@@ -1,6 +1,7 @@
 package com.Jobportal.Service;
 
 import com.Jobportal.Dao.JobPositionDao;
+import com.Jobportal.Entities.Application;
 import com.Jobportal.Entities.Company;
 import com.Jobportal.Entities.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,24 @@ public class JobPositionService {
     @Autowired
     JobPositionDao _jobPositionDao;
 
+    @Autowired
+    EmailServiceImpl _emailServiceImpl;
+
     public JobPosition create(JobPosition jobPosition) {
         return _jobPositionDao.save(jobPosition);
     }
 
     public JobPosition update(JobPosition jobPosition) {
         // TODO: When a job is updated, all the current applicants (applications in terminal states are not considered)are notified about the change.
+        for (Application application : jobPosition.getApplications()) {
+            // currently all status are pending
+            if (application.getStatus().equals("pending")) {
+
+                String email = application.getJobSeeker().getEmail();
+                _emailServiceImpl.sendSimpleMessage(email, "Job Position: " + jobPosition.getTitle() + " got updated", "Please check Job Portal for more details.");
+            }
+        }
+
         return _jobPositionDao.save(jobPosition);
     }
 

@@ -226,6 +226,7 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams) {
     $scope.failureMsg = true;
     $scope.disabled = true;
     $scope.loadFailMsg = true;
+    $scope.noApplications = true;
 
     // fetch job detail
     $http({
@@ -234,14 +235,16 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams) {
 
     }).success(function (data) {
 
-        console.log(data);
-
         if (data.statusCode === 404) {
 
             $scope.loadFailMsg = false;
         } else {
 
             $scope.data = data;
+
+            if ($scope.data.applications.length < 1) {
+                $scope.noApplications = false;
+            }
         }
 
     }).error(function (error) {
