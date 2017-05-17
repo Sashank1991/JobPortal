@@ -28,6 +28,10 @@ public class JobSeekerProfileServices {
 	public JobSeeker getSeeker(int seekerId) {
 		return _jobSeekerProfileDao.findByuserId(seekerId);
 	}
+	
+	public JobSeeker getSeeker(String emailId) {
+		return _jobSeekerProfileDao.findByemail(emailId);
+	}
 
 	// update seeker
 

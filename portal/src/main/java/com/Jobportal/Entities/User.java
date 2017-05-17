@@ -13,13 +13,13 @@ public abstract class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	protected int userId;
-
+	@Column
 	protected String email;
-
+	@Column
 	protected String password;
-
+	@Column
 	protected String verificationCode;
-
+	@Column
 	protected int status;
 
 	public int getUserId() {

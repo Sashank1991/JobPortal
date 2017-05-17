@@ -1,82 +1,94 @@
-<div ng-controller="companySigninRegCtrl" style="background:#F7F7F7">
+<div ng-controller="companySigninRegCtrl" style="background: #F7F7F7">
 
-    <img style="margin: 0 auto; margin-top:-10px; display:block" src="https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/ebay-128.png"/>
+	<img style="margin: 0 auto; margin-top: -10px; display: block"
+		src="https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/ebay-128.png" />
 
-    <div style="margin-top:-10px">
+	<div style="margin-top: -10px">
 
-        <div class="col-md-4 col-xs-2"></div>
+		<div class="col-md-4 col-xs-2"></div>
 
-        <div class="col-md-4 col-xs-8">
+		<div class="col-md-4 col-xs-8">
 
-            <h4> Company </h4>
+			<h4>Company</h4>
 
-            <ul class="nav nav-tabs nav-justified">
-                <li class="active">
-                    <a data-toggle="pill" href="#sign_in"> <span class="glyphicon glyphicon-circle-arrow-right"
-                                                                 aria-hidden="true">&nbsp;</span>Sign In</a>
-                </li>
-                <li>
-                    <a data-toggle="pill" href="#register">
-                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true">&nbsp;</span>Register</a>
-                </li>
-            </ul>
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active"><a data-toggle="pill" href="#Companysign_in">
+						<span class="glyphicon glyphicon-circle-arrow-right"
+						aria-hidden="true">&nbsp;</span>Sign In
+				</a></li>
+				<li><a data-toggle="pill" href="#Companyregister"> <span
+						class="glyphicon glyphicon-plus-sign" aria-hidden="true">&nbsp;</span>Register
+				</a></li>
+			</ul>
 
-            <div class="tab-content" style="background:white; border:1px solid #ddd; border-top: none">
+			<div class="tab-content"
+				style="background: white; border: 1px solid #ddd; border-top: none">
 
-                <div id="sign_in" class="tab-pane fade in active">
+				<div id="Companysign_in" class="tab-pane fade in active">
 
-                    <form ng-submit="signIn()" style="padding: 50px">
-                        <div class="form-group">
-                            <label for="sign_in_email">Email address</label>
-                            <input type="email" class="form-control" id="sign_in_email" ng-model="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="sign_in_pwd">Password</label>
-                            <input type="password" class="form-control" id="sign_in_pwd" ng-model="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    </form>
+					<form ng-submit="signIn()" style="padding: 50px">
+						<div class="form-group">
+							<label for="sign_in_email">Email address</label> <input
+								type="email" class="form-control" id="sign_in_email"
+								ng-model="email" required>
+						</div>
+						<div class="form-group">
+							<label for="sign_in_pwd">Password</label> <input type="password"
+								class="form-control" id="sign_in_pwd" ng-model="password"
+								required>
+						</div>
+						<div class="form-group" ng-show="showVerificationCode">
+							<label>Verification Code</label> <input type="text"
+								class="form-control" id="sign_in_varificationCode"
+								ng-model="verificationCode">
+						</div>
+						<button type="submit" class="btn btn-primary btn-block">Sign
+							In</button>
+					</form>
 
-                </div>
+				</div>
 
-                <div id="register" class="tab-pane fade">
+				<div id="Companyregister" class="tab-pane fade">
 
-                    <form ng-submit="register()" style="padding: 50px">
-                        <div class="form-group">
-                            <label for="name">Company Name</label>
-                            <input type="text" class="form-control" id="name" ng-model="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="website">Company Website</label>
-                            <input type="text" class="form-control" id="website" ng-model="website" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="logoImageURL">Company Logo Image URL</label>
-                            <input type="text" class="form-control" id="logoImageURL" ng-model="logoImageURL" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="addressHQ">Company Head Quarters</label>
-                            <input type="text" class="form-control" id="addressHQ" ng-model="addressHQ" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" ng-model="newEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" ng-model="newPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
-                    </form>
+					<form ng-submit="register()" style="padding: 50px">
+						<div class="form-group">
+							<label for="name">Company Name</label> <input type="text"
+								class="form-control" id="name" ng-model="name" required>
+						</div>
+						<div class="form-group">
+							<label for="website">Company Website</label> <input type="text"
+								class="form-control" id="website" ng-model="website" required>
+						</div>
+						<div class="form-group">
+							<label for="logoImageURL">Company Logo Image URL</label> <input
+								type="text" class="form-control" id="logoImageURL"
+								ng-model="logoImageURL" required>
+						</div>
+						<div class="form-group">
+							<label for="addressHQ">Company Head Quarters</label> <input
+								type="text" class="form-control" id="addressHQ"
+								ng-model="addressHQ" required>
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label> <input type="email"
+								class="form-control" id="email" ng-model="newEmail" required>
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label> <input type="password"
+								class="form-control" id="password" ng-model="newPassword"
+								required>
+						</div>
+						<button type="submit" class="btn btn-primary btn-block">Register</button>
+					</form>
 
-                </div>
+				</div>
 
-            </div>
+			</div>
 
-        </div>
+		</div>
 
-        <div class="col-md-4 col-xs-2"></div>
+		<div class="col-md-4 col-xs-2"></div>
 
-    </div>
+	</div>
 
 </div>

@@ -8,4 +8,6 @@ public interface CompanyDao extends CrudRepository<Company, Long> {
 
 	Company findByUserId(int userId);
 
+	Company findByemail(String email);
+
 }

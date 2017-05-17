@@ -12,15 +12,19 @@ import com.Jobportal.Entities.Company;
 @Configurable
 public class CompanyService {
 
-    @Autowired
-    CompanyDao _companyDaoDao;
+	@Autowired
+	CompanyDao _companyDaoDao;
 
-    public Company getCompany(int userId) {
-        return _companyDaoDao.findByUserId(userId);
-    }
+	public Company getCompany(int userId) {
+		return _companyDaoDao.findByUserId(userId);
+	}
 
-    public Company createOrUpdate(Company company) {
-        return _companyDaoDao.save(company);
-    }
+	public Company getCompany(String email) {
+		return _companyDaoDao.findByemail(email);
+	}
+
+	public Company createOrUpdate(Company company) {
+		return _companyDaoDao.save(company);
+	}
 
 }

@@ -30,6 +30,17 @@ public class JobSeeker extends User {
 	@Column(name = "workExperience")
 	private String workExperience;
 
+	@Column(name = "selfIntroduction")
+	private String selfIntroduction;
+
+	public String getSelfIntroduction() {
+		return selfIntroduction;
+	}
+
+	public void setSelfIntroduction(String selfIntroduction) {
+		this.selfIntroduction = selfIntroduction;
+	}
+
 	@Column(name = "education")
 	private String education;
 
