@@ -40,7 +40,7 @@
 <body>
 	<div ng-app="jobSeeker" ng-controller="userProfile"
 		data-ng-init="init()">
-		<nav class="navbar navbar-default" role="navigation"
+		<nav class="navbar navbar-inverse" role="navigation"
 			style="position: absolute !important; top: 5px; width: 98%; margin: 1%">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -86,7 +86,7 @@
 										<form role="form">
 
 											<div class="form-group">
-												<button type="submit" class="btn btn-default"
+												<button type="submit" class="btn btn-primary"
 													ng-click="saveProfile()">Save Profile</button>
 											</div>
 											<div class="form-group">
@@ -140,7 +140,7 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<button type="submit" class="btn btn-default"
+										<button type="submit" class="btn btn-primary"
 											ng-click="saveFavinFav()">Update Favorites List</button>
 									</div>
 									<table class="table">
@@ -165,7 +165,7 @@
 												<td><span ng-bind="item.responsibilities"></span></td>
 												<td><span ng-bind="item.officeLocation"></span></td>
 												<td><span ng-bind="item.salary"></span></td>
-												<td><button class="btn btn-default"
+												<td><button class="btn btn-primary"
 														ng-click="showModal(item)">Apply</button></td>
 												<!-- ng-click="">Apply</button></td> -->
 
@@ -203,7 +203,7 @@
 												<td><span ng-bind="item.jobPosition.officeLocation"></span></td>
 												<td><span ng-bind="item.jobPosition.salary"></span></td>
 												<td><span ng-bind="item.status"></span></td>
-												<td><button class="btn btn-default"
+												<td><button class="btn btn-danger"
 														ng-click="cancelApplied(item)">Cancel</button></td>
 											</tr>
 
@@ -219,7 +219,7 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<button type="submit" class="btn btn-default"
+										<button type="submit" class="btn btn-primary"
 											ng-click="saveFavinSearch()">Update Favorites List</button>
 									</div>
 
