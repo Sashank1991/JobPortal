@@ -30,6 +30,7 @@ companyHome.controller("browseJobCtrl", function ($scope, $http) {
     $scope.successMsg = true;
     $scope.failureMsg = true;
     $scope.loadFailMsg = true;
+    $scope.noSuchJobs = true;
 
     // default filer criteria
     $scope.jobStatus = {
@@ -59,6 +60,8 @@ companyHome.controller("browseJobCtrl", function ($scope, $http) {
 
 
     $scope.applyFilters = function () {
+
+        $scope.noSuchJobs = true;
 
         $scope.jobPositions.splice(0, $scope.jobPositions.length);
 
@@ -91,6 +94,10 @@ companyHome.controller("browseJobCtrl", function ($scope, $http) {
             }
         }
 
+        if ($scope.jobPositions.length < 1) {
+
+            $scope.noSuchJobs = false;
+        }
     };
 
 });

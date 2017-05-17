@@ -18,7 +18,7 @@
 
                             <label style="margin-top: 5px">
                                 Open &nbsp;
-                                <input type="checkbox" ng-model="jobStatus.open">
+                                <input type="checkbox" ng-model="jobStatus.open" ng-checked="{{jobStatus.open}}">
                             </label>
 
                         </div>
@@ -26,7 +26,7 @@
 
                             <label style="margin-top: 5px">
                                 Closed &nbsp;
-                                <input type="checkbox" ng-model="jobStatus.closed">
+                                <input type="checkbox" ng-model="jobStatus.closed" ng-checked="{{jobStatus.closed}}">
                             </label>
 
                         </div>
@@ -34,7 +34,7 @@
 
                             <label style="margin-top: 5px">
                                 Filled &nbsp;
-                                <input type="checkbox" ng-model="jobStatus.filled">
+                                <input type="checkbox" ng-model="jobStatus.filled" ng-checked="{{jobStatus.filled}}">
                             </label>
 
                         </div>
@@ -56,6 +56,12 @@
                  ng-hide=loadFailMsg
                  style="margin-top: 10px; margin-left: 10px; margin-right: 10px">Sorry!
                 Please refresh the page to view all Job Positions.
+            </div>
+
+            <div class="alert alert-info text-center" role="alert"
+                 ng-hide=noSuchJobs
+                 style="margin-top: 10px; margin-left: 10px; margin-right: 10px">Sorry!
+                No such Job Positions.
             </div>
 
             <div class="panel-body" style="background: #FDFDFD">
