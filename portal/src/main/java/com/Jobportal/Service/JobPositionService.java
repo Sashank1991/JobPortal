@@ -26,7 +26,7 @@ public class JobPositionService {
     }
 
     public JobPosition update(JobPosition jobPosition) {
-        // TODO: When a job is updated, all the current applicants (applications in terminal states are not considered)are notified about the change.
+        // When a job is updated, all the current applicants (applications in terminal states are not considered)are notified about the change.
         for (Application application : jobPosition.getApplications()) {
             // currently all status are pending
             if (application.getStatus().equals("pending")) {

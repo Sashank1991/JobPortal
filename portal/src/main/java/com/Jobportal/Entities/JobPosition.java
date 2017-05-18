@@ -92,7 +92,7 @@ public class JobPosition {
         this.salary = salary;
     }
 
-    @JsonIgnoreProperties({"jobPositions"})
+    @JsonIgnoreProperties({"jobPosition"})
     public Company getCompany() {
         return company;
     }

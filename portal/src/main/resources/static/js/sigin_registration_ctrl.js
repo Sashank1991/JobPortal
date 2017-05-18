@@ -1,19 +1,17 @@
-var siginRegister = angular.module("siginRegister", ["ngRoute",  "ngProgress" ]);
+var siginRegister = angular.module("siginRegister", ["ngRoute", "ngProgress"]);
 siginRegister.config(function ($routeProvider) {
 
     $routeProvider.when("/companySigninReg", {
         templateUrl: "../angular/company_signin_reg.html"
-    }).when("/jobSeekerSiginReg", {
+    }).when("/jobSeekerSigninReg", {
         templateUrl: "../angular/job_seeker_sigin_reg.html"
     }).when("/Companyregister", {
         templateUrl: "../angular/company_signin_reg.html"
     }).when("/Companysign_in", {
         templateUrl: "../angular/company_signin_reg.html"
-    })
-
-        .otherwise({
-            templateUrl: "../angular/job_seeker_sigin_reg.html"
-        });
+    }).otherwise({
+        templateUrl: "../angular/job_seeker_sigin_reg.html"
+    });
 });
 
 siginRegister.controller("companySigninRegCtrl", function ($scope, $http, ngProgressFactory) {
