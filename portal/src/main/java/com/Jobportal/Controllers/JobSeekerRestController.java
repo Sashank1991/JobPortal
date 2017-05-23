@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
+import com.Jobportal.Service.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -41,6 +42,9 @@ public class JobSeekerRestController {
 	@Autowired
 	JobSeekerApplicationServices _jobSeekerApplicationServices;
 
+	@Autowired
+	EmailServiceImpl _emailServiceImpl;
+
 	@RequestMapping(value = "/getseeker", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public JobSeeker getSeeker(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile) {
 		// if no session redirect him to the login
@@ -50,7 +54,7 @@ public class JobSeekerRestController {
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public int updateSeeker(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
-			@RequestBody Map<String, String> profile) {
+							@RequestBody Map<String, String> profile) {
 		currentUserProfile.setFirstName(profile.get("firstName"));
 		currentUserProfile.setLastName(profile.get("lastName"));
 		currentUserProfile.setWorkExperience(profile.get("workExperience"));
@@ -69,7 +73,7 @@ public class JobSeekerRestController {
 	@RequestMapping(value = "/updateFavfromFav", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public int updateFavfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
-			@RequestBody Set<JobPosition> _jobPositions) {
+								@RequestBody Set<JobPosition> _jobPositions) {
 		currentUserProfile.setFavoriteJobs(_jobPositions);
 		_jobSeekerProfileServices.updateSeeker(currentUserProfile);
 		// update session
@@ -82,8 +86,8 @@ public class JobSeekerRestController {
 	@RequestMapping(value = "/applyfromFav", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public int applyfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile,
-			@ModelAttribute("currentResume") MultipartFile resume, Model model,
-			@RequestBody Application _jobApplication) {
+							@ModelAttribute("currentResume") MultipartFile resume, Model model,
+							@RequestBody Application _jobApplication) {
 
 		Application _newApplication = new Application();
 		_newApplication.setJobPosition(_jobApplication.getJobPosition());
@@ -93,6 +97,11 @@ public class JobSeekerRestController {
 		Set<Application> listApplications = currentUserProfile.getApplications();
 		listApplications.add(_newApplication);
 		_jobSeekerProfileServices.updateSeeker(currentUserProfile);
+
+		_emailServiceImpl.sendSimpleMessage(currentUserProfile.getEmail(), "Job Applied",
+				"Thank for applying for " + _jobApplication.getJobPosition().getJobId() + "-"
+						+ _jobApplication.getJobPosition().getTitle() + "position");
+
 		// update session
 		JobSeeker currentJobSeeker = _jobSeekerProfileServices.getSeeker(currentUserProfile.getUserId());
 		model.addAttribute("currentUserProfile", currentJobSeeker);
@@ -103,7 +112,7 @@ public class JobSeekerRestController {
 	@RequestMapping(value = "/cancelApplied", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public int cancelfromApplied(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
-			@RequestBody Application _jobApplication) {
+								 @RequestBody Application _jobApplication) {
 
 		_jobSeekerApplicationServices.cancelJob(currentUserProfile, _jobApplication);
 		// update session

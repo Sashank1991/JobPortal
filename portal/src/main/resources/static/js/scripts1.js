@@ -59,7 +59,7 @@ app
 
 					$scope.fetchProfile = function() {
 						$http
-								.get('http://localhost:8080/getseeker')
+								.get('/getseeker')
 								.then(
 										function(response) {
 											var data = response.data;
@@ -68,8 +68,7 @@ app
 											$scope.profile.lastName = data.lastName;
 											$scope.profile.workExperience = data.workExperience;
 											$scope.profile.education = data.education;
-											// $scope.profile.selfIntroduction =
-											// data.selfIntroduction;
+											$scope.profile.selfIntroduction = data.selfIntroduction;
 											$scope.profile.skills = data.skills;
 											$scope.profile.picKey = data.picKey;
 											$scope.applications = data.applications;
@@ -105,7 +104,7 @@ app
 					$scope.saveProfile = function() {
 						$http({
 							method : 'POST',
-							url : 'http://localhost:8080/updateProfile',
+							url : '/updateProfile',
 							data : $scope.profile
 						}).then(function successCallback(response) {
 							if (response.data == 0) {
@@ -129,7 +128,7 @@ app
 
 						$http({
 							method : 'POST',
-							url : 'http://localhost:8080/updateFavfromFav',
+							url : '/updateFavfromFav',
 							data : FavList
 						}).then(function successCallback(response) {
 							if (response.data == 0) {
@@ -154,7 +153,7 @@ app
 
 						$http({
 							method : 'POST',
-							url : 'http://localhost:8080/applyfromFav',
+							url : '/applyfromFav',
 							data : application
 						}).then(function successCallback(response) {
 							if (response.data == 0) {
@@ -170,7 +169,7 @@ app
 					$scope.cancelApplied = function(jobitem) {
 						$http({
 							method : 'POST',
-							url : 'http://localhost:8080/cancelApplied',
+							url : '/cancelApplied',
 							data : jobitem
 						}).then(function successCallback(response) {
 							if (response.data == 0) {
@@ -197,7 +196,7 @@ app
 						if (SearchData != "") {
 							$http({
 								method : 'POST',
-								url : 'http://localhost:8080/jobs',
+								url : '/jobs',
 								data : SearchData
 							})
 									.then(
@@ -320,7 +319,7 @@ app
 					
 					$scope.uploadPic= function(){
 						$('#fileUploadProfilePic').ajaxForm({
-							url : 'http://localhost:8080/uploadCurrentResume', // or
+							url : '/uploadCurrentResume', // or
 																				// whatever
 							contentType : false,
 							success : function(response) {
@@ -348,7 +347,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item) {
 
 	$scope.upload = function() {
 		$('#fileUpload').ajaxForm({
-			url : 'http://localhost:8080/uploadCurrentResume', // or whatever
+			url : '/uploadCurrentResume', // or whatever
 			contentType : false,
 			success : function(response) {
 				ResumeString = response;
