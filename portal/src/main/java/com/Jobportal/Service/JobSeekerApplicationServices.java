@@ -17,33 +17,38 @@ import com.Jobportal.Entities.JobSeeker;
 @Configurable
 public class JobSeekerApplicationServices {
 
-	@Autowired
-	JobSeekerProfileDao _jobSeekerProfileDao;
+    @Autowired
+    JobSeekerProfileDao _jobSeekerProfileDao;
 
-	@Autowired
-	JobSeekerApplicationsDao _jobSeekerApplicationsDao;
-	@Autowired
-	JobPositionDao _jobPositionDao;
+    @Autowired
+    JobSeekerApplicationsDao _jobSeekerApplicationsDao;
+    @Autowired
+    JobPositionDao _jobPositionDao;
 
-	@Autowired
-	JobSeekerProfileServices _jobSeekerProfileServices;
+    @Autowired
+    JobSeekerProfileServices _jobSeekerProfileServices;
 
-	// create a seeker
+    // create a seeker
 
-	public int cancelJob(JobSeeker _jobSeeker, Application _application) {
-		Application _foundApplication = null;
-		Set<Application> listApplications = _jobSeeker.getApplications();
-		for (Iterator<Application> it = listApplications.iterator(); it.hasNext();) {
-			Application f = it.next();
-			if (f.getApplicationId() == _application.getApplicationId()) {
-				it.remove();
-				_foundApplication = _jobSeekerApplicationsDao.findByapplicationId(f.getApplicationId());
-			}
-		}
-		_jobSeekerProfileServices.updateSeeker(_jobSeeker);
-		_jobSeekerApplicationsDao.delete(_foundApplication);
+    public int cancelJob(JobSeeker _jobSeeker, Application _application) {
+        Application _foundApplication = null;
+        Set<Application> listApplications = _jobSeeker.getApplications();
+        for (Iterator<Application> it = listApplications.iterator(); it.hasNext(); ) {
+            Application f = it.next();
+            if (f.getApplicationId() == _application.getApplicationId()) {
+                it.remove();
+                _foundApplication = _jobSeekerApplicationsDao.findByapplicationId(f.getApplicationId());
+            }
+        }
+        _jobSeekerProfileServices.updateSeeker(_jobSeeker);
+        _jobSeekerApplicationsDao.delete(_foundApplication);
 
-		return 0;
-	}
+        return 0;
+    }
+
+    void updateApplicationStatus(Application application, String status) {
+        application.setStatus(status);
+        _jobSeekerApplicationsDao.save(application);
+    }
 
 }

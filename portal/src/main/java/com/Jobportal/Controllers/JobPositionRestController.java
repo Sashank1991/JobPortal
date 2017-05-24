@@ -55,13 +55,21 @@ public class JobPositionRestController {
             MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> updateJobPosition(@RequestBody JobPosition _jobPosition) {
 
-        JobPosition jobPosition = _jobPositionService.update(_jobPosition);
+        int resultCode = _jobPositionService.update(_jobPosition);
 
-        if (jobPosition == null) {
+        if (resultCode == -1) {
+
             return new ResponseEntity<>(new Response(500), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        } else if (resultCode == -2) {
 
-        return new ResponseEntity<>(new Response(200), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(400), HttpStatus.OK);
+        } else if (resultCode == -3) {
+
+            return new ResponseEntity<>(new Response(403), HttpStatus.OK);
+        } else {
+
+            return new ResponseEntity<>(new Response(200), HttpStatus.OK);
+        }
     }
 
     // done

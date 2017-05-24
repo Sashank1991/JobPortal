@@ -65,7 +65,7 @@
                     </div>
 
 
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label class="col-md-4 col-xs-6 control-label" for="responsibilities">Status</label>
                         <div class="col-md-8 col-xs-6" style="margin-top: 5px">
                             <div class="col-md-3 col-xs-3">
@@ -83,7 +83,7 @@
                             <div class="col-md-4 col-xs-4">
                                 <label>
                                     <input type="radio" ng-model="data.status" value="0" ng-disabled="disabled">
-                                    Closed
+                                    Cancelled
                                 </label><br/>
                             </div>
                         </div>
@@ -110,8 +110,19 @@
                     <div class="alert alert-success text-center" role="alert"
                          ng-hide="successMsg">Well done! Job Position updated sucessfully.
                     </div>
+
                     <div class="alert alert-danger text-center" role="alert"
-                         ng-hide="failureMsg">Oh snap! Please try again.
+                         ng-hide="failureMsg">Oh snap ! Internal Server Error. Please retry.
+                    </div>
+
+                    <div class="alert alert-warning text-center" role="alert"
+                         ng-hide="warning400">Sorry ! If an application is in OfferAccepted state, the company cannot
+                        cancel this position.
+                    </div>
+
+                    <div class="alert alert-warning text-center" role="alert"
+                         ng-hide="warning403">Sorry ! A position can't be marked as Filled if it does not have an offer
+                        accepted.
                     </div>
 
                 </form>

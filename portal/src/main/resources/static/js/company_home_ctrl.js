@@ -1,4 +1,4 @@
-var companyHome = angular.module("companyHome", ["ngRoute"]);
+var companyHome = angular.module("companyHome", ["ngRoute", "ngProgress"]);
 companyHome.config(function ($routeProvider) {
 
     $routeProvider.when("/postJob", {
@@ -220,13 +220,15 @@ companyHome.controller("profileCtrl", function ($scope, $http) {
 });
 
 // done
-companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams) {
+companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams, ngProgressFactory) {
 
     $scope.successMsg = true;
     $scope.failureMsg = true;
     $scope.disabled = true;
-    $scope.loadFailMsg = true;
     $scope.noApplications = true;
+
+    $scope.warning400 = true;
+    $scope.warning403 = true;
 
     // fetch job detail
     $http({
@@ -254,6 +256,11 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams) {
 
     $scope.update = function () {
 
+        $scope.progressbar = ngProgressFactory.createInstance();
+        $scope.progressbar.setHeight('6px');
+        $scope.progressbar.setColor('#4EBADB');
+        $scope.progressbar.start();
+
         $http({
             method: "POST",
             url: '/jobPosition/update',
@@ -261,16 +268,24 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams) {
 
         }).success(function (data) {
 
-            if (data.statusCode === 500) {
-                $scope.failureMsg = false;
+            if (data.statusCode == 400) {
 
+                $scope.warning400 = false;
+            } else if (data.statusCode == 403) {
+
+                $scope.warning403 = false;
             } else {
+
                 $scope.successMsg = false;
-                $scope.disabled = true;
             }
+            $scope.disabled = true;
+            $scope.progressbar.complete();
 
         }).error(function (error) {
+
             $scope.failureMsg = false;
+            $scope.progressbar.complete();
+
         });
 
     };
@@ -279,6 +294,8 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams) {
         $scope.disabled = false;
         $scope.successMsg = true;
         $scope.failureMsg = true;
+        $scope.warning400 = true;
+        $scope.warning403 = true;
     };
 
 });
