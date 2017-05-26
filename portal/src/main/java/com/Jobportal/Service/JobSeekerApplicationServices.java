@@ -3,6 +3,8 @@ package com.Jobportal.Service;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
@@ -17,38 +19,43 @@ import com.Jobportal.Entities.JobSeeker;
 @Configurable
 public class JobSeekerApplicationServices {
 
-    @Autowired
-    JobSeekerProfileDao _jobSeekerProfileDao;
+	@Autowired
+	JobSeekerProfileDao _jobSeekerProfileDao;
 
-    @Autowired
-    JobSeekerApplicationsDao _jobSeekerApplicationsDao;
-    @Autowired
-    JobPositionDao _jobPositionDao;
+	@Autowired
+	JobSeekerApplicationsDao _jobSeekerApplicationsDao;
+	@Autowired
+	JobPositionDao _jobPositionDao;
 
-    @Autowired
-    JobSeekerProfileServices _jobSeekerProfileServices;
+	@Autowired
+	JobSeekerProfileServices _jobSeekerProfileServices;
 
-    // create a seeker
+	// create a seeker
 
-    public int cancelJob(JobSeeker _jobSeeker, Application _application) {
-        Application _foundApplication = null;
-        Set<Application> listApplications = _jobSeeker.getApplications();
-        for (Iterator<Application> it = listApplications.iterator(); it.hasNext(); ) {
-            Application f = it.next();
-            if (f.getApplicationId() == _application.getApplicationId()) {
-                it.remove();
-                _foundApplication = _jobSeekerApplicationsDao.findByapplicationId(f.getApplicationId());
-            }
-        }
-        _jobSeekerProfileServices.updateSeeker(_jobSeeker);
-        _jobSeekerApplicationsDao.delete(_foundApplication);
+	@Transactional
+	public int cancelJob(JobSeeker _jobSeeker, Application _application) {
+		Application _foundApplication = null;
+		Set<Application> listApplications = _jobSeeker.getApplications();
+		for (Iterator<Application> it = listApplications.iterator(); it.hasNext();) {
+			Application f = it.next();
+			if (f.getApplicationId() == _application.getApplicationId()) {
+				// it.remove();
+				_foundApplication = _jobSeekerApplicationsDao.findByapplicationId(f.getApplicationId());
+			}
+		}
+		// _jobSeekerProfileServices.updateSeeker(_jobSeeker);
 
-        return 0;
-    }
+		_foundApplication.setStatus("cancelled");
 
-    void updateApplicationStatus(Application application, String status) {
-        application.setStatus(status);
-        _jobSeekerApplicationsDao.save(application);
-    }
+		_jobSeekerApplicationsDao.save(_foundApplication);
+
+		return 0;
+	}
+
+	@Transactional
+	void updateApplicationStatus(Application application, String status) {
+		application.setStatus(status);
+		_jobSeekerApplicationsDao.save(application);
+	}
 
 }
