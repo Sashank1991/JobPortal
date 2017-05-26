@@ -291,6 +291,9 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams, n
     };
 
     $scope.accept = function (application) {
+
+        application.jobPosition = $scope.data;
+
         $scope.successMsg = true;
         $scope.failureMsg = true;
 
@@ -320,6 +323,8 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams, n
 
     $scope.decline = function (application) {
 
+        application.jobPosition = $scope.data;
+
         $scope.successMsg = true;
         $scope.failureMsg = true;
 
@@ -327,6 +332,7 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams, n
         $scope.progressbar.setHeight('6px');
         $scope.progressbar.setColor('#4EBADB');
         $scope.progressbar.start();
+
 
         $http({
             method: "POST",
