@@ -10,7 +10,7 @@
 <script>
 	document.write('<base href="' + document.location + '" />');
 </script>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
 <script data-require="angular.js@1.5.x"
@@ -78,61 +78,61 @@
 							<div class="panel panel-default"
 								style="height: 80vh; overflow: auto;" id="divUserProfile">
 								<div class="col-md-4">
-								<div class="panel-heading">
-									<h3 class="panel-title">User Profile</h3>
-								</div>
-								<div class="panel-body">
-									<div>
-										<form role="form">
-
-											<div class="form-group">
-												<button type="submit" class="btn btn-primary"
-													ng-click="saveProfile()">Save Profile</button>
-											</div>
-											<div class="form-group">
-												<img ng-src="{{profile.picKey}}" alt="Mountain View"
-													style="width: 150px; height: 150px;" />
-											</div>
-
-											<div class="form-group">
-												<label> First Name </label> <input type="text"
-													ng-model="profile.firstName" class="form-control" />
-											</div>
-											<div class="form-group">
-												<label> Last Name </label> <input type="text"
-													ng-model="profile.lastName" class="form-control" />
-											</div>
-											<div class="form-group">
-												<label> Self Introduction </label> <input type="text"
-													ng-model="profile.selfIntroduction" class="form-control" />
-											</div>
-											<div class="form-group">
-												<label> Work experience </label> <input type="text"
-													ng-model="profile.workExperience" class="form-control" />
-											</div>
-											<div class="form-group">
-												<label> Education </label> <input type="text"
-													ng-model="profile.education" class="form-control" />
-											</div>
-											<div class="form-group">
-												<label> Skills </label> <input type="text"
-													ng-model="profile.skills" class="form-control" />
-											</div>
-
-										</form>
+									<div class="panel-heading">
+										<h3 class="panel-title">User Profile</h3>
+									</div>
+									<div class="panel-body">
 										<div>
-											<form id="fileUploadProfilePic" action="javascript:;"
-												enctype="multipart/form-data" method="post"
-												accept-charset="utf-8">
-												<input type="file" name="image" />
+											<form role="form">
+
+												<div class="form-group">
+													<button type="submit" class="btn btn-primary"
+														ng-click="saveProfile()">Save Profile</button>
+												</div>
+												<div class="form-group">
+													<img ng-src="{{profile.picKey}}" alt="Mountain View"
+														style="width: 150px; height: 150px;" />
+												</div>
+
+												<div class="form-group">
+													<label> First Name </label> <input type="text"
+														ng-model="profile.firstName" class="form-control" />
+												</div>
+												<div class="form-group">
+													<label> Last Name </label> <input type="text"
+														ng-model="profile.lastName" class="form-control" />
+												</div>
+												<div class="form-group">
+													<label> Self Introduction </label> <input type="text"
+														ng-model="profile.selfIntroduction" class="form-control" />
+												</div>
+												<div class="form-group">
+													<label> Work experience </label> <input type="text"
+														ng-model="profile.workExperience" class="form-control" />
+												</div>
+												<div class="form-group">
+													<label> Education </label> <input type="text"
+														ng-model="profile.education" class="form-control" />
+												</div>
+												<div class="form-group">
+													<label> Skills </label> <input type="text"
+														ng-model="profile.skills" class="form-control" />
+												</div>
+
 											</form>
-											<button class="btn btn-primary" ng-click="uploadPic()">upload
-												Profile Picture</button>
+											<div>
+												<form id="fileUploadProfilePic" action="javascript:;"
+													enctype="multipart/form-data" method="post"
+													accept-charset="utf-8">
+													<input type="file" name="image" />
+												</form>
+												<button class="btn btn-primary" ng-click="uploadPic()">upload
+													Profile Picture</button>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							</div>	
 
 							<div class="panel panel-default" style="height: 80vh;"
 								id="divFav">
@@ -205,7 +205,15 @@
 												<td><span ng-bind="item.jobPosition.salary"></span></td>
 												<td><span ng-bind="item.status"></span></td>
 												<td><button class="btn btn-danger"
-														ng-click="cancelApplied(item)">Cancel</button></td>
+														ng-show="item.status == 'pending'"
+														ng-click="cancelApplied(item)">Cancel</button>
+													<button class="btn btn-danger"
+														ng-show="item.status == 'offered'"
+														ng-click="acceptfromApplied(item)">Accept</button>
+													<button class="btn btn-danger"
+														ng-show="item.status == 'offered'"
+														ng-click="rejectfromApplied(item)">Reject</button>
+												</td>
 											</tr>
 
 										</tbody>

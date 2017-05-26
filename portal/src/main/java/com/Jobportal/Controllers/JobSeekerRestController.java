@@ -1,6 +1,7 @@
 package com.Jobportal.Controllers;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +26,8 @@ import com.Jobportal.Entities.JobSeeker;
 import com.Jobportal.Service.FileArchiveService;
 import com.Jobportal.Service.JobSeekerApplicationServices;
 import com.Jobportal.Service.JobSeekerProfileServices;
+
+import antlr.collections.List;
 
 @RestController
 @SessionAttributes({ "currentUserProfile", "currentResume" })
@@ -54,7 +57,7 @@ public class JobSeekerRestController {
 	@RequestMapping(value = "/updateProfile", method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public int updateSeeker(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
-							@RequestBody Map<String, String> profile) {
+			@RequestBody Map<String, String> profile) {
 		currentUserProfile.setFirstName(profile.get("firstName"));
 		currentUserProfile.setLastName(profile.get("lastName"));
 		currentUserProfile.setWorkExperience(profile.get("workExperience"));
@@ -73,7 +76,7 @@ public class JobSeekerRestController {
 	@RequestMapping(value = "/updateFavfromFav", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public int updateFavfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
-								@RequestBody Set<JobPosition> _jobPositions) {
+			@RequestBody Set<JobPosition> _jobPositions) {
 		currentUserProfile.setFavoriteJobs(_jobPositions);
 		_jobSeekerProfileServices.updateSeeker(currentUserProfile);
 		// update session
@@ -86,35 +89,90 @@ public class JobSeekerRestController {
 	@RequestMapping(value = "/applyfromFav", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public int applyfromFav(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile,
-							@ModelAttribute("currentResume") MultipartFile resume, Model model,
-							@RequestBody Application _jobApplication) {
+			@ModelAttribute("currentResume") MultipartFile resume, Model model,
+			@RequestBody Application _jobApplication) throws Exception {
+		try {
+			int count = 0;
+			boolean error = false;
+			Set<Application> listApplications = currentUserProfile.getApplications();
 
-		Application _newApplication = new Application();
-		_newApplication.setJobPosition(_jobApplication.getJobPosition());
-		_newApplication.setJobSeeker(currentUserProfile);
-		_newApplication.setStatus(_jobApplication.getStatus());
-		_newApplication.setResumeKey(_jobApplication.getResumeKey());
-		Set<Application> listApplications = currentUserProfile.getApplications();
-		listApplications.add(_newApplication);
-		_jobSeekerProfileServices.updateSeeker(currentUserProfile);
+			Iterator<Application> itr = listApplications.iterator();
 
-		_emailServiceImpl.sendSimpleMessage(currentUserProfile.getEmail(), "Job Applied",
-				"Thank for applying for " + _jobApplication.getJobPosition().getJobId() + "-"
-						+ _jobApplication.getJobPosition().getTitle() + "position");
+			while (itr.hasNext()) {
 
+				Application application = itr.next();
+
+				if (application.getStatus().equalsIgnoreCase("pending")) {
+					count++;
+				}
+				if (_jobApplication.getJobPosition().getJobId() == application.getJobPosition().getJobId() 
+						&& (application.getStatus().equalsIgnoreCase("pending")
+								|| application.getStatus().equalsIgnoreCase("offered"))) {
+					error = true;
+				}
+
+			}
+
+			if (count > 5 || error) {
+
+				return 1;
+			}
+
+			Application _newApplication = new Application();
+			_newApplication.setJobPosition(_jobApplication.getJobPosition());
+			_newApplication.setJobSeeker(currentUserProfile);
+			_newApplication.setStatus(_jobApplication.getStatus());
+			_newApplication.setResumeKey(_jobApplication.getResumeKey());
+
+			listApplications.add(_newApplication);
+			_jobSeekerProfileServices.updateSeeker(currentUserProfile);
+
+			_emailServiceImpl.sendSimpleMessage(currentUserProfile.getEmail(), "Job Applied",
+					"Thank for applying for " + _jobApplication.getJobPosition().getJobId() + "-"
+							+ _jobApplication.getJobPosition().getTitle() + "position");
+
+			// update session
+			JobSeeker currentJobSeeker = _jobSeekerProfileServices.getSeeker(currentUserProfile.getUserId());
+			model.addAttribute("currentUserProfile", currentJobSeeker);
+			// if no session redirect him to the login
+			return 0;
+		} catch (Exception e) {
+			return 1;
+		}
+	}
+
+	@RequestMapping(value = "/cancelApplied", method = RequestMethod.POST, consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public int cancelfromApplied(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
+			@RequestBody Application _jobApplication) {
+
+		_jobSeekerApplicationServices.cancelJob(currentUserProfile, _jobApplication, "cancelled");
 		// update session
 		JobSeeker currentJobSeeker = _jobSeekerProfileServices.getSeeker(currentUserProfile.getUserId());
 		model.addAttribute("currentUserProfile", currentJobSeeker);
 		// if no session redirect him to the login
 		return 0;
 	}
-	
-	@RequestMapping(value = "/cancelApplied", method = RequestMethod.POST, consumes = {
-			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public int cancelfromApplied(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
-								 @RequestBody Application _jobApplication) {
 
-		_jobSeekerApplicationServices.cancelJob(currentUserProfile, _jobApplication);
+	@RequestMapping(value = "/acceptfromApplied", method = RequestMethod.POST, consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public int acceptfromApplied(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
+			@RequestBody Application _jobApplication) {
+
+		_jobSeekerApplicationServices.cancelJob(currentUserProfile, _jobApplication, "offerAccepted");
+		// update session
+		JobSeeker currentJobSeeker = _jobSeekerProfileServices.getSeeker(currentUserProfile.getUserId());
+		model.addAttribute("currentUserProfile", currentJobSeeker);
+		// if no session redirect him to the login
+		return 0;
+	}
+
+	@RequestMapping(value = "/rejectfromApplied", method = RequestMethod.POST, consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public int rejectfromApplied(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
+			@RequestBody Application _jobApplication) {
+
+		_jobSeekerApplicationServices.cancelJob(currentUserProfile, _jobApplication, "offerRejcted");
 		// update session
 		JobSeeker currentJobSeeker = _jobSeekerProfileServices.getSeeker(currentUserProfile.getUserId());
 		model.addAttribute("currentUserProfile", currentJobSeeker);
@@ -151,6 +209,28 @@ class ApplyRequestModel {
 
 	public void set_jobApplication(Application _jobApplication) {
 		this._jobApplication = _jobApplication;
+	}
+
+}
+
+class ManipulateApplication {
+	private String status;
+	private Application jobItem;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Application get_jobApplication() {
+		return jobItem;
+	}
+
+	public void set_jobApplication(Application _jobApplication) {
+		this.jobItem = _jobApplication;
 	}
 
 }
