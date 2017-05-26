@@ -290,6 +290,64 @@ companyHome.controller("jobDetailCtrl", function ($scope, $http, $routeParams, n
 
     };
 
+    $scope.accept = function (application) {
+        $scope.successMsg = true;
+        $scope.failureMsg = true;
+
+        $scope.progressbar = ngProgressFactory.createInstance();
+        $scope.progressbar.setHeight('6px');
+        $scope.progressbar.setColor('#4EBADB');
+        $scope.progressbar.start();
+
+        $http({
+            method: "POST",
+            url: '/jobPosition/application/accept',
+            data: application
+
+        }).success(function (data) {
+
+            $scope.successMsg = false;
+            $scope.progressbar.complete();
+
+        }).error(function (error) {
+
+            $scope.failureMsg = false;
+            $scope.progressbar.complete();
+
+        });
+
+    };
+
+    $scope.decline = function (application) {
+
+        $scope.successMsg = true;
+        $scope.failureMsg = true;
+
+        $scope.progressbar = ngProgressFactory.createInstance();
+        $scope.progressbar.setHeight('6px');
+        $scope.progressbar.setColor('#4EBADB');
+        $scope.progressbar.start();
+
+        $http({
+            method: "POST",
+            url: '/jobPosition/application/decline',
+            data: application
+
+        }).success(function (data) {
+
+            $scope.successMsg = false;
+            $scope.progressbar.complete();
+
+        }).error(function (error) {
+
+            $scope.failureMsg = false;
+            $scope.progressbar.complete();
+
+        });
+
+    };
+
+
     $scope.edit = function () {
         $scope.disabled = false;
         $scope.successMsg = true;

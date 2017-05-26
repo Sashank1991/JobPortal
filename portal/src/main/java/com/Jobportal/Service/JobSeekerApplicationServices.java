@@ -19,43 +19,43 @@ import com.Jobportal.Entities.JobSeeker;
 @Configurable
 public class JobSeekerApplicationServices {
 
-	@Autowired
-	JobSeekerProfileDao _jobSeekerProfileDao;
+    @Autowired
+    JobSeekerProfileDao _jobSeekerProfileDao;
 
-	@Autowired
-	JobSeekerApplicationsDao _jobSeekerApplicationsDao;
-	@Autowired
-	JobPositionDao _jobPositionDao;
+    @Autowired
+    JobSeekerApplicationsDao _jobSeekerApplicationsDao;
+    @Autowired
+    JobPositionDao _jobPositionDao;
 
-	@Autowired
-	JobSeekerProfileServices _jobSeekerProfileServices;
+    @Autowired
+    JobSeekerProfileServices _jobSeekerProfileServices;
 
-	// create a seeker
+    // create a seeker
 
-	@Transactional
-	public int cancelJob(JobSeeker _jobSeeker, Application _application) {
-		Application _foundApplication = null;
-		Set<Application> listApplications = _jobSeeker.getApplications();
-		for (Iterator<Application> it = listApplications.iterator(); it.hasNext();) {
-			Application f = it.next();
-			if (f.getApplicationId() == _application.getApplicationId()) {
-				// it.remove();
-				_foundApplication = _jobSeekerApplicationsDao.findByapplicationId(f.getApplicationId());
-			}
-		}
-		// _jobSeekerProfileServices.updateSeeker(_jobSeeker);
+    @Transactional
+    public int cancelJob(JobSeeker _jobSeeker, Application _application) {
+        Application _foundApplication = null;
+        Set<Application> listApplications = _jobSeeker.getApplications();
+        for (Iterator<Application> it = listApplications.iterator(); it.hasNext(); ) {
+            Application f = it.next();
+            if (f.getApplicationId() == _application.getApplicationId()) {
+                // it.remove();
+                _foundApplication = _jobSeekerApplicationsDao.findByapplicationId(f.getApplicationId());
+            }
+        }
+        // _jobSeekerProfileServices.updateSeeker(_jobSeeker);
 
-		_foundApplication.setStatus("cancelled");
+        _foundApplication.setStatus("cancelled");
 
-		_jobSeekerApplicationsDao.save(_foundApplication);
+        _jobSeekerApplicationsDao.save(_foundApplication);
 
-		return 0;
-	}
+        return 0;
+    }
 
-	@Transactional
-	void updateApplicationStatus(Application application, String status) {
-		application.setStatus(status);
-		_jobSeekerApplicationsDao.save(application);
-	}
+    @Transactional
+    public void updateApplicationStatus(Application application, String status) {
+        application.setStatus(status);
+        _jobSeekerApplicationsDao.save(application);
+    }
 
 }

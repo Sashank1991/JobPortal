@@ -1,9 +1,11 @@
 package com.Jobportal.Controllers;
 
+import com.Jobportal.Entities.Application;
 import com.Jobportal.Entities.Company;
 import com.Jobportal.Entities.JobPosition;
 import com.Jobportal.Entities.Response;
 import com.Jobportal.Service.JobPositionService;
+import com.Jobportal.Service.JobSeekerApplicationServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,9 @@ public class JobPositionRestController {
 
     @Autowired
     JobPositionService _jobPositionService;
+
+    @Autowired
+    JobSeekerApplicationServices _jobSeekerApplicationServices;
 
     // done
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -78,6 +83,23 @@ public class JobPositionRestController {
 
         return new ResponseEntity<>(_jobPositionService.getAllPositions(currentCompany),
                 HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/application/accept", method = RequestMethod.POST,
+            consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> acceptApplication(@RequestBody Application _application) {
+
+        _jobSeekerApplicationServices.updateApplicationStatus(_application, "accept");
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/application/decline", method = RequestMethod.POST,
+            consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> declineApplication(@RequestBody Application _application) {
+
+        _jobSeekerApplicationServices.updateApplicationStatus(_application, "decline");
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
 
 
