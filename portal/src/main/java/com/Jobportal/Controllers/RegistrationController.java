@@ -3,7 +3,6 @@ package com.Jobportal.Controllers;
 import java.util.HashMap;
 import java.util.Random;
 
-import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;

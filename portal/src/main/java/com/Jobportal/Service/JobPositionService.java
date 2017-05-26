@@ -88,10 +88,12 @@ public class JobPositionService {
 
     }
 
+    @Transactional
     public JobPosition getJobDetail(int jobId) {
         return _jobPositionDao.findByJobId(jobId);
     }
-
+    
+    @Transactional
     public List<JobPosition> getAllPositions(Company company) {
         return _jobPositionDao.findByCompany(company);
     }

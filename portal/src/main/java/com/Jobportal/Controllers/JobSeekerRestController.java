@@ -108,7 +108,7 @@ public class JobSeekerRestController {
 		// if no session redirect him to the login
 		return 0;
 	}
-
+	
 	@RequestMapping(value = "/cancelApplied", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public int cancelfromApplied(@ModelAttribute("currentUserProfile") JobSeeker currentUserProfile, Model model,
