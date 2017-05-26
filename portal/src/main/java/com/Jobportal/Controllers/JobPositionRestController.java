@@ -90,7 +90,7 @@ public class JobPositionRestController {
             consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> acceptApplication(@RequestBody Application _application) {
 
-        _jobSeekerApplicationServices.updateApplicationStatus(_application, "accept");
+        _jobSeekerApplicationServices.updateApplicationStatus(_application, "offered");
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 
@@ -98,7 +98,7 @@ public class JobPositionRestController {
             consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> declineApplication(@RequestBody Application _application) {
 
-        _jobSeekerApplicationServices.updateApplicationStatus(_application, "decline");
+        _jobSeekerApplicationServices.updateApplicationStatus(_application, "rejected");
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 
