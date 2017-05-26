@@ -160,6 +160,9 @@ app
 								$scope.fetchProfile();
 								alert("Updated Successfully");
 							}
+							else{
+								alert("Can not apply because either user might have more than 5 pending applications or status in not in terminal status.");
+							}
 							return false;
 						}, function errorCallback(response) {
 							alert("Error Occured");
@@ -167,9 +170,44 @@ app
 						return false;
 					};
 					$scope.cancelApplied = function(jobitem) {
+
 						$http({
 							method : 'POST',
 							url : '/cancelApplied',
+							data : jobitem
+						}).then(function successCallback(response) {
+							if (response.data == 0) {
+								$scope.fetchProfile();
+								alert("Updated Successfully");
+							}
+						}, function errorCallback(response) {
+							alert("Error Occured");
+						});
+						return false;
+					};
+					
+					$scope.rejectfromApplied = function(jobitem) {
+
+						$http({
+							method : 'POST',
+							url : '/rejectfromApplied',
+							data : jobitem
+						}).then(function successCallback(response) {
+							if (response.data == 0) {
+								$scope.fetchProfile();
+								alert("Updated Successfully");
+							}
+						}, function errorCallback(response) {
+							alert("Error Occured");
+						});
+						return false;
+					};
+					
+					$scope.acceptfromApplied = function(jobitem) {
+
+						$http({
+							method : 'POST',
+							url : '/acceptfromApplied',
 							data : jobitem
 						}).then(function successCallback(response) {
 							if (response.data == 0) {
